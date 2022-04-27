@@ -1,0 +1,135 @@
+<div class="container">
+  <h3 class="center"><b>PROJECT SETUP ENTRY FORM</b></h3>
+  <br />
+  <!-- COPY PROJECT -->
+  <div class="section">
+    <p> Copy Project</p>
+  </div>
+  <form [formGroup]="copyProjectForm" (ngSubmit)="copyProject()">
+    <!-- copy from -->
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="from_project">From Project</label>
+        <select id="from_project" formControlName="from_projectId" selected="null" class="clr-dropdown">
+          <option value="null">Choose Project</option>
+          <option *ngFor="let project of projects" [value]="project.id">{{ project.name }}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- copy to -->
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="to_project">Project Name</label>
+        <input id="to_project" type="text" formControlName="to_projectName" placeholder="Enter Project Name"
+          class="clr-input">
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="to_tech_stack">Technology Stack</label>
+        <select id="to_tech_stack" formControlName="to_tech_stack" selected="null" class="clr-dropdown">
+          <option value="null">Choose technology stack</option>
+          <option *ngFor="let ts of tech_stacks" [value]="ts">{{ ts }}</option>
+        </select>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <button id="submit" type="submit" class="btn btn-primary" style="margin-top: 24px" [disabled]="!copyProjectForm.valid">COPY</button>
+      </div>
+    </div>
+  </form>
+  <br>
+  <!-- copy end -->
+
+  <div class="section">
+    <p> Project Details </p>
+  </div>
+  <!-- entry form-->
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectName">Project Name</label>
+        <input id="projectName" type="text" formControlName="projectName" placeholder="Enter Project Name"
+          class="clr-input">
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'projectName'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="description">Description</label>
+        <input id="description" type="text" formControlName="description" placeholder="Enter Description"
+          class="clr-input">
+        <!-- <textarea rows="4" cols="50" type="text" formControlName="description"
+            placeholder="Enter Your Project Description"></textarea> -->
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'description'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="technologyStack">Technology Stack</label>
+        <select formControlName="technologyStack" selected="null" class="clr-dropdown">
+          <option value="null">Choose Technology</option>
+          <option *ngFor="let ts of tech_stacks" [value]="ts">{{ ts }}
+          </option>
+        </select>
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'technologyStack'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+
+      <!-- add field here -->
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="techStackId">Select Technology</label>
+        <select colspan="2" formControlName="techStackId" selected="null" class="clr-dropdown">
+          <option value="null">Choose Technology</option>
+          <option *ngFor="let ts of activeTechnologyDropDown" [value]="ts.id">{{ ts.name }}
+          </option>
+        </select>
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'tech_stack_id'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectPrefix">Project Prefix</label>
+        <input type="text" formControlName="projectPrefix" placeholder="Enter A Prefix" class="clr-input">
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'projectPrefix'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectPrefix">Default Database Name</label>
+        <input type="text" formControlName="dbName" placeholder="Enter Database Name" class="clr-input">
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'dbName'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectPrefix">Default Database Username</label>
+        <input type="text" formControlName="dbUserName" placeholder="Enter Database Username" class="clr-input">
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'dbUserName'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="dbPassword">Default Database Password</label>
+        <input type="text" formControlName="dbPassword" placeholder="Enter Database Password" class="clr-input">
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'dbPassword'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="portNumber">Default Port Number</label>
+        <input colspan="2" type="text" formControlName="portNumber" readonly class="clr-input">
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'portNumber'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="center">
+      <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">SUBMIT</button>
+    </div>
+  </form>
+</div>

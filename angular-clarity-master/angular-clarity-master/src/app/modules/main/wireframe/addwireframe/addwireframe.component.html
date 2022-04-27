@@ -1,0 +1,108 @@
+<div class="container">
+  <h3 class="center"><b>DEFINE WIREFRAME</b></h3>
+  <br />
+
+  <!-- COPY WIREFRAME -->
+  <div class="section">
+    <p> Copy Wireframe</p>
+  </div>
+  <form [formGroup]="copyWireFrameForm" (ngSubmit)="copyWireFrame()">
+    <!-- copy from -->
+    <div class="row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="from_project">From Project</label>
+        <select id="from_project" formControlName="from_projectId" selected="null" (change)="changeModule($event.target.value)" class="clr-dropdown">
+          <option value="null">Choose Project</option>
+          <option *ngFor="let project of projects" [value]="project.id">{{ project.name | uppercase }}
+        </select>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="from_module">From Module</label>
+        <select id="from_module" formControlName="from_moduleId" selected="null" (change)="changeWireFrame($event.target.value)" class="clr-dropdown">
+          <option value="null">Choose Module</option>
+          <option *ngFor="let module of modules" [value]="module.id">{{ module.name | uppercase }}
+          </option>
+        </select>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="from_WireFrame">From Component</label>
+        <select id="from_WireFrame" formControlName="from_WireFrameId" selected="null"  class="clr-dropdown">
+          <option value="null">Choose Wireframe</option>
+          <option *ngFor="let wireframe of wireframes" [value]="wireframe.id">{{ wireframe.name | uppercase }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <!-- copy to -->
+    <div class="row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="to_uiName">To Component Name</label>
+        <input type="text" formControlName="to_uiName" placeholder="Enter UI Name" class="clr-input">
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <button id="submit" type="submit" class="btn btn-primary" [disabled]="!copyWireFrameForm.valid">COPY</button>
+      </div>
+    </div>
+  </form>
+  <br>
+  <!-- copy form end -->
+
+  <div class="section">
+    <p>Wireframe Entry Form</p>
+  </div>
+  <!-- entry form-->
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="techStack">Technology Stack</label>
+        <select id="techStack" formControlName="techStack" selected="null" class="clr-dropdown">
+          <option value="null">Choose Technology</option>
+          <option *ngFor="let ts of tech_stacks" [value]="ts">{{ ts }}
+          </option>
+        </select>
+        <div *ngFor="let item of fieldErrors">
+          <span *ngIf="item.field === 'tech_stack'" class="text text-danger">{{ item.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="objectType">Object Type</label>
+        <select id="objectType" formControlName="objectType" selected="null" class="clr-dropdown">
+          <option value="null">Choose Object Type</option>
+          <option *ngFor="let ot of object_types" [value]="ot">{{ ot | uppercase }}
+          </option>
+        </select>
+        <div *ngFor="let item of fieldErrors">
+          <span *ngIf="item.field === 'objectType'" class="text text-danger">{{ item.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="subObjectType">Sub Object Type</label>
+        <select id="subObjectType" formControlName="subObjectType" selected="null" class="clr-dropdown">
+          <option value="null">Choose Sub Object Type</option>
+          <option *ngFor="let sot of sub_object_types" [value]="sot">{{ sot | uppercase }}
+          </option>
+        </select>
+        <div *ngFor="let item of fieldErrors">
+          <span *ngIf="item.field === 'subObjectType'" class="text text-danger">{{ item.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="uiName">UI Name</label>
+        <input id="uiName" type="text" formControlName="uiName" placeholder="Enter UI Name" class="clr-input">
+        <div *ngFor="let error of fieldErrors">
+          <span *ngIf="error.field === 'uiName'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div class="center">
+      <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">SUBMIT</button>
+    </div>
+  </form>
+</div>

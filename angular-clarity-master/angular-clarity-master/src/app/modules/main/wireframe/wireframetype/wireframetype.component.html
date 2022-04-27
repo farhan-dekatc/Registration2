@@ -1,0 +1,34 @@
+<h3 style="text-align: center;"><b>Select form Type</b></h3>
+<br>
+<br>
+<div class="clr-row">
+  <div class="col-xs-12">
+    <!-- PAGE CONTENT BEGINS -->
+    <div class="widget-box" style="width: 90%; margin-left: 5%;">
+      <div class="widget-body">
+        <div class="widget-main">
+          <div id="fuelux-wizard-container">
+            <div class="step-content pos-rel">
+              <div class="step-pane active" data-step="1">
+                <table>
+                  <tr>
+                    <td *ngFor="let item of items">
+                      <div class="form-group" style="margin-left: 10%; margin-right: 10%;">
+                        <a type="button" [routerLink]="item.href" [queryParams]="{formType: item.formType}" [title]="item.title">
+                          <img [src]="item.image" height="200" width="200">
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

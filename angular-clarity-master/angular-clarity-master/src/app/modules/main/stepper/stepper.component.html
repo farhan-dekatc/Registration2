@@ -1,0 +1,223 @@
+
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/']">Home</a></li>
+  <li><a href="javascript://">stepper</a></li>
+</ol>
+
+
+
+
+
+<div class="button-bar">
+
+  <span class="spacer"></span>
+  <button class="btn btn-sm btn-primary" (click)="reset()">Reset</button>
+
+  <button class="btn btn-sm btn-primary" (click)="changeToHorizonTal()" *ngIf="layout.direction === 'vertical'">HorizonTal Layout</button>
+  <button class="btn btn-sm btn-primary" (click)="changeToVertical()" *ngIf="layout.direction === 'horizontal'">Vertical Layout</button>
+
+</div>
+
+<div class="clr-row" >
+  <div [class]="layout.block1" >
+    <div class="card">
+      <div class="card-header">
+        <h3 style="text-align: center;"> STUDENT ADDMISSION</h3>
+      </div>
+
+      <div class=" card-block container">
+
+        <clr-timeline [clrLayout]="layout.direction" >
+          <clr-timeline-step [clrState]="timelineStyle.step0.state">
+            <clr-timeline-step-header>Step 0</clr-timeline-step-header>
+            <clr-timeline-step-title> <span *ngIf="!appToUpdate">Application</span><span *ngIf="appToUpdate"> Update Datagrid</span> </clr-timeline-step-title>
+            <clr-timeline-step-description> <span>Create/Add student<br> Application for Addmision</span></clr-timeline-step-description>
+          </clr-timeline-step>
+          <clr-timeline-step class="gemini-ignore" [clrState]="timelineStyle.step1.state">
+                        <clr-timeline-step-header>Step 1</clr-timeline-step-header>
+            <clr-timeline-step-title> <span> Schedule Discussion </span></clr-timeline-step-title>
+            <clr-timeline-step-description>
+              Enter Discussion <br>Schedule for:
+              <ul class="list">
+                <li>Candidate</li>
+                <li>Parent 1</li>
+                <li>Parent 2</li>
+              </ul>
+
+            </clr-timeline-step-description>
+          </clr-timeline-step>
+          <clr-timeline-step  [clrState]="timelineStyle.step2.state" >
+            <clr-timeline-step-header>Step 2</clr-timeline-step-header>
+            <clr-timeline-step-title><span>Candidate Interview</span></clr-timeline-step-title>
+            <clr-timeline-step-description>
+
+              Enter Candidate Interview Feedback.
+
+              <ul class="list">
+                <li>Communication</li>
+                <li>Culture</li>
+                <li>Behaviour</li>
+                <li>Aptitude</li>
+              </ul>
+
+
+            </clr-timeline-step-description>
+          </clr-timeline-step>
+          <clr-timeline-step   [clrState]="timelineStyle.step3.state" >
+            <clr-timeline-step-header>Step 3</clr-timeline-step-header>
+            <clr-timeline-step-title>Parent Interview</clr-timeline-step-title>
+            <clr-timeline-step-description> <span>Enter Parent Interview<br> Feedback.</span></clr-timeline-step-description>
+
+          </clr-timeline-step>
+          <clr-timeline-step  [clrState]="timelineStyle.step4.state">
+            <clr-timeline-step-header>Step 4</clr-timeline-step-header>
+            <clr-timeline-step-title>Review And <br>Allot Grade</clr-timeline-step-title>
+            <clr-timeline-step-description>
+              Finish .
+            </clr-timeline-step-description>
+          </clr-timeline-step>
+        </clr-timeline>
+      </div>
+    </div>
+  </div>
+  <div [class]="layout.block2" >
+
+    <!--STEP 0-->
+    <div class="card" *ngIf="timelineStyle.step0.open">
+      <div class="card-header">
+        <h3 style="text-align: center;" *ngIf="!appToUpdate">Student Addmision-Application</h3>
+        <h3 style="text-align: center;" *ngIf="appToUpdate"> Update {{college.studentname}}</h3>
+        <div class="container">
+
+          <br />
+
+          <!-- entry form-->
+          <form #contactForm="ngForm" (ngSubmit)="onSave(contactForm)">
+            <div class="container">
+            <div class="clr-row">
+              <div class="horizontal">
+                  <label for="tags">Name<span class="required-field">*</span></label>
+                  <input id="name" type="text"  placeholder="Enter name" name="name" ngModel required>
+               </div>
+
+              <div class="horizontal">
+                <label for="tags">Date Of Birth<span class="required-field">*</span></label>
+                <input id="birthdate" type="Date"  placeholder="Enter Birth date" name="birthdate"  ngModel required>
+              </div>
+              <div class="horizontal">
+                <label for="tags">Age<span class="required-field">*</span></label>
+                <input id="age" type="text"  placeholder="Enter age" name="age" ngModel required>
+              </div>
+              <div class="horizontal">
+                <label for="tags">Birth Place<span class="required-field">*</span></label>
+                <input id="birthplace" type="text"  placeholder="Enter Birth place" name="birthplace" ngModel required>
+
+              </div>
+            </div>
+
+
+            <div class="clr-row">
+              <div class="middle1">
+                <label for="file"> Permanent Address<span class="required-field">*</span></label>
+                <input type="text" id="permanentadd" placeholder="enter address" name="permanentadd" ngModel required>
+              </div>
+              <div class="horizontal">
+                <label for="file"> main area<span class="required-field">*</span></label>
+                <input type="text" placeholder="enter address" name="mainarea" id="mainarea" ngModel required>
+              </div>
+            </div>
+            <div class="clr-row">
+
+              <div class="horizontal1">
+                <label for="tags">Building Name<span class="required-field">*</span></label>
+                <input id="buildingname" type="text"  placeholder="Enter pincode" name="buildingname" ngModel required>
+              </div>
+              <div class="horizontal1">
+                <label for="tags">Pin-Code<span class="required-field">*</span></label>
+                <input id="pincode" type="text"  placeholder="Enter pincode" name="pincode" ngModel required>
+              </div>
+            </div>
+
+            <div class="clr-row">
+              <div class="full">
+                <label for="file"> Postal Address</label>
+                <input type="text" placeholder="enter address" id="postaladd" name="postaladd" ngModel required>
+              </div>
+
+            </div>
+            <div class="clr-row">
+
+              <div class="horizontal1">
+                <label for="tags">Previous School<span class="required-field">*</span></label>
+                <input id="priviousschool" type="text"  placeholder="Enter previous Scholl" name="priviousschool" ngModel required>
+              </div>
+              <div class="horizontal1">
+                <label for="tags">Other Activity<span class="required-field">*</span></label>
+                <input id="otheractivity" type="text"  placeholder="Enter Activity" name="otheractivity" ngModel required>
+              </div>
+            </div>
+            <div class="clr-row">
+
+              <div class="horizontal1">
+                <label for="tags">Last year Mark<span class="required-field">*</span></label>
+                <input id="mark" type="text"  placeholder="Enter mark" name="mark" ngModel required>
+              </div>
+              <div class="horizontal1">
+                <label for="tags">Passed Grade<span class="required-field">*</span></label>
+                <input id="grade" type="text"  placeholder="Enter Grade" name="grade" ngModel required>
+              </div>
+            </div>
+            <!-- end row -->
+            <br>
+            <div class="button">
+              <button type="submit" class="btn btn-primary" [disabled]="!contactForm.valid">Submit</button>
+
+              <button type="button" class="btn  btn-primary"(click)="this.timelineStyle.step0 ={ state: 'success', open: false };this.timelineStyle.step1 ={ state: 'current', open: true };">Complete</button>
+              <button type="button" class="btn btn-primary" (click)="this.timelineStyle.step0 ={state:'current',open:false};this.timelineStyle.step1 ={state:'not-started',open:true}">Next</button>
+
+            </div>
+          </div>
+          </form>
+
+        </div>
+
+      </div></div>
+ <!--STEP 1-->
+ <div class="card" *ngIf="timelineStyle.step1.open">
+  <div class="card-header">
+    <h3 style="text-align: center;" *ngIf="!appToUpdate">Student Addmision-Application</h3>
+    <h3 style="text-align: center;" *ngIf="appToUpdate"> Update {{college.studentname}}</h3>
+    <div class="container">
+      <button type="submit" class="btn btn-primary" >Submit</button>
+
+      <button type="button" class="btn  btn-primary" (click)="this.timelineStyle.step1 ={ state: 'success', open: false };this.timelineStyle.step2 ={ state: 'current', open: true };">Complete</button>
+      <button class="btn btn-primary-outline" (click)="this.timelineStyle.step0 ={ state: 'success', open: true };this.timelineStyle.step1 ={ state: 'not-started', open: false };">Back</button>
+
+      <button type="button" class="btn btn-primary" (click)="this.timelineStyle.step1 ={state:'not-started',open:false};this.timelineStyle.step2 ={state:'not-started',open:true}">Next</button>
+</div></div></div>
+<!--STEP 2-->
+<div class="card" *ngIf="timelineStyle.step2.open">
+  <div class="card-header">
+    <h3 style="text-align: center;" *ngIf="!appToUpdate">Student Addmision</h3>
+    <h3 style="text-align: center;" *ngIf="appToUpdate"> Update {{college.studentname}}</h3>
+    <div class="container">
+      <button type="button" class="btn  btn-primary"(click)="this.timelineStyle.step2 ={ state: 'success', open: false };this.timelineStyle.step3 ={ state: 'current', open: true };">Complete</button>
+      <button class="btn btn-primary-outline" (click)="this.timelineStyle.step1 ={ state: 'success', open: true };this.timelineStyle.step2 ={ state: 'not-started', open: false };">Back</button>
+
+      <button type="button" class="btn btn-primary" (click)="this.timelineStyle.step2 ={state:'not-started',open:false};this.timelineStyle.step3 ={state:'not-started',open:true}">Next</button>
+</div></div></div>
+<!--STEP 3-->
+<div class="card" *ngIf="timelineStyle.step3.open">
+  <div class="card-header">
+    <h3 style="text-align: center;" *ngIf="!appToUpdate">Student Addmision</h3>
+    <h3 style="text-align: center;" *ngIf="appToUpdate"> Update {{college.studentname}}</h3>
+    <div class="container">
+      <button type="button" class="btn  btn-primary"(click)="this.timelineStyle.step3 ={ state: 'success', open: false };this.timelineStyle.step4 ={ state: 'current', open: true };">Complete</button>
+      <button class="btn btn-primary-outline" (click)="this.timelineStyle.step2 ={ state: 'success', open: true };this.timelineStyle.step3 ={ state: 'not-started', open: false };">Back</button>
+
+      <button type="button" class="btn btn-primary" (click)="this.timelineStyle.step3 ={state:'not-started',open:false};this.timelineStyle.step4 ={state:'not-started',open:true}" >Next</button>
+</div></div></div>
+    </div>
+</div>
+
+

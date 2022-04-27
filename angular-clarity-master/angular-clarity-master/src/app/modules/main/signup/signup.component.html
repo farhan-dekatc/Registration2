@@ -1,0 +1,56 @@
+
+<header class="header-6">
+  <div class="branding" >
+    <a href="javascript://" class="nav-link">
+      <a href="#" class="logo">
+        <img class="img" src="assets/images/icon/sitelogo.png" alt="" height="50" width="50">
+      </a>
+      <div style="width:40px;margin-right:10px;">
+
+    </div>
+      <span class="title">CloudnSure</span>
+    </a>
+  </div>
+</header>
+
+
+
+<div class="container">
+  <div class="display_msg">
+    <h2>Welcome To Cloud cloudnsure!</h2>
+    <p>you're signing up as {{ email }}</p>
+    <br>
+
+    <form class="form" [formGroup]="userRegistrationForm" (ngSubmit)="onSubmit()">
+      <label><b>First Name</b></label><br>
+      <input class="form__field" type="text" formControlName="firstName"
+        placeholder="Enter First Name" />
+      <div *ngIf="f.firstName.invalid && (f.firstName.dirty || f.firstName.touched)">
+        <p style="font-size:10px; color:indianred; font-weight: bold" *ngIf="f.firstName.errors.required">First Name is required</p>
+        <p style="font-size:10px; color:indianred; font-weight: bold" *ngIf="f.firstName.errors.minlength">First Name must be 3 Characters</p>
+      </div>
+      <br>
+      <label><b>Last Name</b></label><br>
+      <input class="form__field" type="text" formControlName="lastName" placeholder="Enter lastName Name" />
+      <div *ngIf="f.lastName.invalid && (f.lastName.dirty || f.lastName.touched)" style="color:indianred; font-weight: bold">
+        <p style="font-size:10px; color:indianred; font-weight: bold" *ngIf="f.lastName.errors.required">password is required</p>
+      </div>
+      <br>
+     <!--  <label><b>Email</b></label><br>
+      <input class="form__field" type="email" formControlName="email" [value]="email" />
+      <br> -->
+      <label><b>Password</b></label><br>
+      <input class="form__field" type="password" formControlName="password" placeholder="Enter Password" />
+      <div *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)" style="color:indianred; font-weight: bold">
+        <p style="font-size:10px; color:indianred; font-weight: bold" *ngIf="f.password.errors.required">password is required</p>
+        <p style="font-size:10px; color:indianred; font-weight: bold" *ngIf="f.password.errors.minlength">password must be 8 characters</p>
+      </div>
+      <br>
+      <br>
+      <button type="submit" class="btn btn--primary uppercase" [disabled]="!userRegistrationForm.valid">continue</button>
+    </form>
+    <br>
+    <br>
+    <p> Wrong account? <a routerLink="/login">Log in</a> instead.</p>
+  </div>
+</div>

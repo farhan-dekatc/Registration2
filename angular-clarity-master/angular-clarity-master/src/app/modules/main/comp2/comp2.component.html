@@ -1,0 +1,33 @@
+<div class="container">
+
+  <h2><b>Tell us about yourself,Ganesh</b></h2>
+
+  <br>
+
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="controllerName"><strong>What kind of work do you do?</strong></label><br />
+          <select id="" formControlName="working" selected="null" class="clr-dropdown">
+              <option value="null">Select a type of work similar to yours</option>
+              <option *ngFor="let ts of values" [value]="ts">{{ ts }}</option>
+          </select>
+          <!-- <input class="clr-input" type="text" id="" formControlName=""> -->
+
+
+      </div>
+      <br />
+
+
+
+
+
+
+      <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">continue</button>
+
+
+
+  </form>
+
+
+</div>

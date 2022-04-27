@@ -1,0 +1,33 @@
+<div class="container">
+  <h3 style="text-align: center;"><b>Select Action</b></h3>
+  <br>
+  <!-- <div class="clr-row">
+    <div class="clr-col-lg-4 clr-col-12">
+      <div class="card" *ngFor="let tool of tools">
+        <div class="card-block">
+          <h3 class="card-title">{{ tool.title }}</h3>
+          <p class="card-text">
+            {{ tool.details }}
+          </p>
+        </div>
+        <div class="card-footer">
+          <a [routerLink]="tool.action" class="btn btn-sm btn-link">Go</a>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- <div class="clr-row">
+    <div class="clr-col-3" *ngFor="let tool of tools">
+      <button class="btn btn-primary" [routerLink]="tool.action">{{ tool.title | uppercase }} </button>
+    </div>
+  </div> -->
+
+
+  <div class="btn-group btn-primary btn-icon" *ngFor="let tool of tools">
+    <button class="btn" style="margin-right: 14px; margin-bottom: 64px;" [routerLink]="tool.action">{{ tool.title |
+      uppercase }} </button>
+      <!-- <button class="btn" style="margin-right: 14px; margin-bottom: 64px;" [routerLink]="tool.action" [queryParams]="{m_id: moduleId}">{{ tool.title |
+        uppercase }} </button> -->
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="container">
+
+  <h2><b>Tell us about yourself,Ganesh</b></h2>
+
+  <br>
+
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="controllerName"><strong>What is your company name?</strong></label><br />
+          <input class="clr-input" type="text" formControlName="companyname" id=""
+              placeholder="Give it a name if you are freelancer" name="companyname">
+      </div>
+      <!-- <div class="clr-col-md-4 clr-col-sm-12">
+
+          <input type="checkbox" id="" formControlName="check">
+          <label for="controllerName"><strong> I am a freelancer</strong></label><br>
+          <input type="checkbox" id="" formControlName="">
+          <label for="controllerName"><strong> I hava a pancard</strong></label><br>
+
+      </div> -->
+      <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="controllerName"><strong>Pancard</strong></label><br />
+          <input class="clr-input" type="text" formControlName="pancard" id=""
+              placeholder="Give it a name if you are freelancer" name="pancard">
+      </div>
+
+
+
+      <br />
+
+      <button type="submit" class="btn btn-primary">continue</button>
+
+  </form>
+</div>

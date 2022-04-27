@@ -1,0 +1,12 @@
+<h2 *ngIf="user!=null&&!isEmailDifferent">
+  {{this.user.email}} already exists Please sign in with a different account
+  <a routerLink="/create-account">click here to try again</a>
+</h2>
+
+<h2 *ngIf="user!=null&&isEmailDifferent">
+  {{this.user.email}} is not same as {{storedmail}}
+  Please sign in using the same email as entered earlier
+  <a routerLink="/create-account">click here to try again</a>
+</h2>
+
+

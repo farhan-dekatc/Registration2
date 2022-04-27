@@ -1,0 +1,77 @@
+<div class="container">
+  <h3 class="center"><b>MODULE SETUP ENTRY FORM</b></h3>
+  <br />
+
+  <!-- COPY MODULE -->
+  <div class="section">
+    <p> Copy Module</p>
+  </div>
+  <form [formGroup]="copyModuleForm" (ngSubmit)="copyModule()">
+    <!-- copy from -->
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="from_project">From Project</label>
+        <select id="from_project" formControlName="from_projectId" selected="null" (change)="changeModule($event.target.value)" class="clr-dropdown">
+          <option value="null">Choose Project</option>
+          <option *ngFor="let project of projects" [value]="project.id">{{ project.name }}</option>
+        </select>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="from_module">From Module</label>
+        <select id="from_module" formControlName="from_moduleId" selected="null" class="clr-dropdown">
+          <option value="null">Choose Module</option>
+          <option *ngFor="let module of modules" [value]="module.id">{{ module.name }}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- copy to -->
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="from_module">Module Name</label>
+        <input type="text" formControlName="to_moduleName" placeholder="Enter Module Name" class="clr-input">
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <button id="submit" type="submit" class="btn btn-primary"  style="margin-top: 24px" [disabled]="!copyModuleForm.valid">COPY</button>
+      </div>
+    </div>
+  </form>
+  <!-- <br> -->
+  <div class="section">
+    <p> Module Details </p>
+  </div>
+  <!-- entry form-->
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="moduleName">Module Name</label>
+        <input id="moduleName" type="text" formControlName="moduleName" placeholder="Enter Module Name"
+          class="clr-input">
+        <div *ngFor="let error of fieldError">
+          <span *ngIf="error.field === 'moduleName'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="description">Description</label>
+        <input id="description" type="text" formControlName="description" placeholder="Enter Description"
+          class="clr-input">
+        <div *ngFor="let error of fieldError">
+          <span *ngIf="error.field === 'description'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="modulePrefix">Module Prefix</label>
+        <input id="modulePrefix" type="text" formControlName="modulePrefix" placeholder="Enter A Prefix"
+          class="clr-input">
+        <div *ngFor="let error of fieldError">
+          <span *ngIf="error.field === 'modulePrefix'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+    </div>
+    <br>
+    <!-- <br> -->
+    <div class="center">
+      <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">SUBMIT</button>
+    </div>
+  </form>
+</div>

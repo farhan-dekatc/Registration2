@@ -1,0 +1,114 @@
+<div class="container">
+  <h3 class="center"><b>PROJECT SETUP EDIT FORM</b></h3>
+  <br />
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="to_tech_stack">Technology Stack</label>
+        <select id="to_tech_stack" name="technologyStack" [(ngModel)]="project.technologyStack" selected="null" class="clr-dropdown">
+          <option value="null">Choose technology stack</option>
+          <option *ngFor="let ts of tech_stacks" [value]="ts">{{ ts }}</option>
+        </select>
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'tech_stack'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectName">Project Name</label>
+        <input id="projectName" type="text" name="projectName" [(ngModel)]="project.projectName"
+          placeholder="Enter Project Name" class="clr-input">
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'projectName'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="description">Description</label>
+        <input id="description" type="text" name="description" [(ngModel)]="project.description"
+          placeholder="Enter Description" class="clr-input">
+        <!-- <textarea rows="4" cols="50" type="text" name="description"
+            placeholder="Enter Your Project Description"></textarea> -->
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'description'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <!-- <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="tech_stack_id">Technology Stack</label>
+        <select name="tech_stack_id" [(ngModel)]="project.tech_stack_id" class="clr-dropdown">
+          <option value="">Choose Technology</option>
+          <option *ngFor="let ts of tech_stacks" [value]="ts">{{ ts }}
+          </option>
+        </select>
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'tech_stack_id'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div> -->
+
+
+      <!-- add field here -->
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="techStackId">Select Technology</label>
+        <select id="techStackId" name="tech_stack_id" [(ngModel)]="project.techStackId" class="clr-dropdown">
+          <option value="null">Choose Technology</option>
+          <option *ngFor="let ts of activeTechnologyDropDown" [value]="ts.id">{{ts.name }}
+          </option>
+        </select>
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'tech_stack_id'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="projectPrefix">Project Prefix</label>
+        <input type="text" name="projectPrefix" [(ngModel)]="project.projectPrefix" placeholder="Enter A Prefix"
+          class="clr-input">
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'projectPrefix'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="dbName">Default Database Name</label>
+        <input type="text" name="dbName" [(ngModel)]="project.dbName" placeholder="Enter Database Name"
+          class="clr-input">
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'dbName'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="dbUserName">Default Database Username</label>
+        <input type="text" name="dbUserName" [(ngModel)]="project.dbUserName" placeholder="Enter Database Username"
+          class="clr-input">
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'dbUserName'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="dbPassword">Default Database Password</label>
+        <input type="text" name="dbPassword" [(ngModel)]="project.dbPassword" placeholder="Enter Database Password"
+          class="clr-input">
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'dbPassword'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="portNumber">Default Port Number</label>
+        <input type="text" name="portNumber" [(ngModel)]="project.portNumber" readonly class="clr-input">
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'portNumber'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div class="center">
+      <button type="submit" form-control class="btn btn-primary">UPDATE</button>
+    </div>
+
+  </form>
+
+</div>

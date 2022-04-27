@@ -1,0 +1,94 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/']">Home</a></li>
+  <li><a href="javascript://">product2</a></li>
+  <li><a href="javascript://">edit</a></li>
+</ol>
+
+
+
+<div class="container">
+  <h3 class="center"><b>Product EDIT FORM</b></h3>
+  <br />
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="clr-row">
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="productname">Product Name</label>
+        <input id="productname" type="text" name="productname" [(ngModel)]="product.productname"
+          placeholder="Enter product Name" class="clr-input">
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'productname'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="quantity">Quantity</label>
+        <input id="quantity" type="text" name="quantity" [(ngModel)]="product.quantity"
+          placeholder="Enter Quantity" class="clr-input">
+        <!-- <textarea rows="4" cols="50" type="text" name="description"
+            placeholder="Enter Your Project Description"></textarea> -->
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'quantity'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="date">Date</label>
+        <input type="text" name="date" [(ngModel)]="product.date" placeholder="Enter A date"
+          class="clr-input">
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'date'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="phone">phone</label>
+        <input type="text" name="phone" [(ngModel)]="product.phone" placeholder="Enter phone"
+          class="clr-input">
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'phone'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="price">price</label>
+        <input type="text" name="price" [(ngModel)]="product.price" placeholder="Enter price"
+          class="clr-input">
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'price'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+      <!-- <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="tech_stack_id">Technology Stack</label>
+        <select name="tech_stack_id" [(ngModel)]="project.tech_stack_id" class="clr-dropdown">
+          <option value="">Choose Technology</option>
+          <option *ngFor="let ts of tech_stacks" [value]="ts">{{ ts }}
+          </option>
+        </select>
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'tech_stack_id'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div> -->
+
+
+      <!-- add field here -->
+
+
+
+
+
+
+
+
+
+    <br>
+
+    <div class="clr-col-md-6 clr-col-sm-12">
+      <button type="submit" form-control class="btn btn-primary">UPDATE</button>
+    </div>
+</div>
+  </form>
+
+</div>

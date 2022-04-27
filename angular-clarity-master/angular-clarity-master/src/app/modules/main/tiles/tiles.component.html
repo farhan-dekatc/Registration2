@@ -1,0 +1,87 @@
+<div class="clr-row">
+
+  <div class="clr-col-12" style="text-align: right;">
+
+    <button id="add" class="btn btn-primary" (click)="goToAdd(college)">
+      <clr-icon shape="plus"></clr-icon>ADD
+    </button>
+  </div>
+</div>
+
+<div>
+  <div *ngIf="college; else showInfo" class="clr-row clr-align-items-start clr-justify-content-start">
+      <div *ngFor="let app of college; let index = i" class="clr-col-auto" style="max-width: min-content;">
+          <a class="card clickable"  routerLinkActive="actice">
+              <div class="card-block">
+                  <h3 class="card-title">{{app.studentname}}</h3>
+
+              </div>
+              <div class="card-footer">
+                  <span class="label label-light-blue p7" style="margin-top: .4em;">ID: {{app.studentid}}</span>
+                  <span class="label label-light-blue p7" style="margin-top: .4em;">Department: {{app.department}}</span>
+                  <span class="label label-purple p7" style="margin-top: .4em;">Date: {{app.joiningDate}}</span>
+                  <span class="label label-success p7" style="margin-top: .4em;">emailId: {{app.emailId}}</span>
+              </div>
+          </a>
+      </div>
+  </div>
+
+  <ng-template #showInfo>
+      <div class="alert alert-info" role="alert">
+          <div class="alert-items">
+              <div class="alert-item static">
+                  <div class="alert-icon-wrapper">
+                      <clr-icon class="alert-icon" shape="info-circle"></clr-icon>
+                  </div>
+                  <span class="alert-text">
+                      Sorry. No student apps could be found.
+                  </span>
+              </div>
+          </div>
+      </div>
+  </ng-template>
+</div>
+
+<clr-modal [(clrModalOpen)]="modalAdd" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">User Add</h3>
+  <div class="modal-body">
+
+    <form clrForm #contactForm="ngForm" (ngSubmit)="onSave(contactForm)" >
+      <clr-input-container>
+
+        <label>Name<span class="required-field">*</span></label>
+        <input id="studentname" clrInput type="text" ngModel  name="studentname" minlength="3"
+        placeholder="Enter name" required/>
+
+      </clr-input-container>
+      <clr-input-container>
+        <label for="tags">Department<span class="required-field">*</span></label>
+        <input id="department" clrInput type="text" ngModel  name="department"
+        placeholder="Enter Department" required>
+      </clr-input-container>
+      <clr-input-container>
+        <label>JoiningDate<span class="required-field">*</span></label>
+        <input id="joiningDate" clrInput type="text" ngModel name="joiningDate"
+        placeholder="Enter Date" required/>
+      </clr-input-container>
+      <clr-input-container>
+        <label for="tags">Phone<span class="required-field">*</span></label>
+        <input id="phone" clrInput type="text" ngModel  name="phone" maxlength="10"
+        placeholder="Enter Phone No" required>
+      </clr-input-container>
+      <clr-input-container>
+        <label for="tags">EmailId<span class="required-field">*</span></label>
+        <input id="emailId" clrInput type="text" ngModel  name="emailId" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+        placeholder="Enter EmailId" required>
+      </clr-input-container>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="modalAdd = false">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!contactForm.valid">Add</button>
+      </div>
+
+    </form>
+
+  </div>
+
+</clr-modal>

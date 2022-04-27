@@ -1,0 +1,70 @@
+<div class="container">
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+      <div>
+          <h2>How are you currently managing your work_<br>from home,the office,or whereyour you are?</h2>
+      </div>
+
+      <div>
+          <h4>Choose any option(s) below.</h4>
+
+      </div>
+      <br>
+
+      <div class="s-order-dash-pg">
+
+          <!-- <div class="chart-box"> -->
+          <span>
+
+              <cds-icon class="icon" shape="computer" badge="warning-triangle"></cds-icon>
+
+              <input type="radio" id="" formControlName="managing_work" value=" development">
+              <label>100% Local Development</label>
+
+          </span>
+
+          <span>
+              <cds-icon class="icon" shape="file" badge="info"></cds-icon>
+
+              <input type="radio" id="" formControlName="managing_work" value="github">
+              <label> Local + Github/GitLab</label>
+          </span>
+
+          <span>
+              <cds-icon class="icon" shape="file" badge="info"></cds-icon>
+
+
+              <input type="radio" id="" formControlName="managing_work" value="cloud">
+              <label>100% on cloud</label>
+          </span>
+
+
+          <!-- </div> -->
+
+          <!-- <div class="chart-box">
+
+
+          <cds-icon class="icon" shape="file" badge="info"></cds-icon>
+
+
+          <input type="radio">
+          Local + Github/GitLab
+
+
+      </div>
+
+      <div class="chart-box">
+          <cds-icon class="icon" shape="file" badge="info"></cds-icon>
+
+          <input type="radio">
+          100% on cloud
+
+      </div> -->
+
+      </div>
+      <br>
+
+      <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">Continue</button>
+
+
+  </form>
+</div>

@@ -1,0 +1,19 @@
+<div>
+
+</div><h3 style="text-align: center;"><b>UiName update PROPERTIES</b></h3>
+    <br>
+    <form (ngSubmit)="uinameupdate()">
+        <!-- <table> -->
+        <div class="clr-row">
+            <div class="clr-col-xs-12 clr-col-lg-3 clr-col-md-4">
+                <label for="fieldName">Enter uiname Name</label>
+                <input class="clr-input" colspan="2" type="text" name="uiName" [value]="header.uiName" [(ngModel)]="data.uiName"
+                    placeholder="Enter Uiname Name">{{data.uiName}}
+                <div *ngFor="let error of fieldErors">
+                    <span *ngIf="error.field === 'fieldName'" class="text text-danger">{{ error.message }}</span>
+                </div>
+            </div>
+            </div>
+            <br>
+            <button style="text-align: center;" type="submit" form-control class="btn btn-primary">UPDATE</button>
+        </form>

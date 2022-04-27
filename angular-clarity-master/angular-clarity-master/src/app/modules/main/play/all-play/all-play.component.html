@@ -1,0 +1,121 @@
+
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/']">Home</a></li>
+  <li><a href="javascript://">play</a></li>
+
+</ol>
+
+
+<div class="dg-wrapper">
+  <div class="clr-row">
+    <div class="clr-col-8">
+      <h3>User list </h3>
+    </div>
+    <div class="clr-col-4" style="text-align: right;">
+      <button class="btn btn-outline" (click)="onExport()">
+        <clr-icon shape="export"></clr-icon> xlsx
+      </button>
+      <button id="add" class="btn btn-primary"  (click)="goToAdd()">
+        <clr-icon shape="plus"></clr-icon>ADD
+      </button>
+    </div>
+  </div>
+
+
+
+
+
+
+
+  <clr-datagrid [clrDgLoading]="loading">
+    <clr-dg-placeholder>user not found!</clr-dg-placeholder>
+    <clr-dg-column [clrDgField]="'studentid'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      studentid
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'studentname'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      StudentName
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'department'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        department
+      </ng-container>
+      </clr-dg-column >
+    <clr-dg-column [clrDgField]="'joiningDate'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      joiningDate
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'phone'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      phone
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'emailId'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      emailId
+    </ng-container></clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let user of college" [clrDgItem]="user">
+      <clr-dg-cell>{{user.studentid}}</clr-dg-cell>
+      <clr-dg-cell>{{user.studentname}}</clr-dg-cell>
+      <clr-dg-cell>{{user.department}}</clr-dg-cell>
+      <clr-dg-cell>{{user.joiningDate}}</clr-dg-cell>
+      <clr-dg-cell>{{user.phone}}</clr-dg-cell>
+      <clr-dg-cell>{{user.emailId}}</clr-dg-cell>
+      <clr-dg-action-overflow>
+
+        <button class="action-item" (click)="goToEditwf(user.wf_instance_id)"><clr-icon shape="play" class="is-info"></clr-icon></button>
+        <button class="action-item" (click)="onDelete(user)">Delete</button>
+      </clr-dg-action-overflow>
+
+      <clr-dg-row-detail *clrIfExpanded>
+        <table class="table">
+          <tr>
+            <td class="td-title">StudentId</td>
+            <td class="td-content">{{user.studentid}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">StudentName</td>
+            <td class="td-content">{{user.studentname}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">Department</td>
+            <td class="td-content">{{user.department}} </td>
+          </tr>
+          <tr>
+            <td class="td-title">JoiningDate</td>
+            <td class="td-content">{{user.joiningDate}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">Phone Number</td>
+            <td class="td-content">phone:{{user.phone}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">EmailId</td>
+            <td class="td-content">EmailId:{{user.emailId}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">wf_instance_id</td>
+            <td class="td-content">wf_instance_id:{{user.wf_instance_id}}</td>
+          </tr>
+
+        </table>
+      </clr-dg-row-detail>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Users per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} users
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>
+
+<clr-modal [(clrModalOpen)]="modaldelete" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+
+  <div class="modal-body" *ngIf="rowSelected.studentid">
+    <h1 class="delete">Are You Sure Want to delete?</h1>
+    <h2 class="heading">{{rowSelected.studentid}}</h2>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modaldelete = false">Cancel</button>
+    <button type="submit" (click)="delete(rowSelected.studentid)" class="btn btn-primary" >Delete</button>
+    </div>
+  </div>
+</clr-modal>

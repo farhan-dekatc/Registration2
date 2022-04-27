@@ -1,0 +1,218 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/']">Home</a></li>
+  <li><a href="javascript://">product</a></li>
+</ol>
+
+<div class="dg-wrapper">
+  <div class="clr-row">
+    <div class="clr-col-8">
+      <h3>User list </h3>
+    </div>
+    <div class="clr-col-4" style="text-align: right;">
+
+      <button class="btn btn-outline"  (click)="onExport()">
+        <clr-icon shape="export"></clr-icon> xlsx
+      </button>
+      <button id="add" class="btn btn-primary" (click)="goToAdd(product)" >
+        <clr-icon shape="plus"></clr-icon>ADD
+      </button>
+    </div>
+  </div>
+  <clr-datagrid [clrDgLoading]="loading">
+    <clr-dg-placeholder>user not found!</clr-dg-placeholder>
+    <clr-dg-column [clrDgField]="'productid'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      productid
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'productname'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      productname
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'quantity'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        quantity
+      </ng-container>
+      </clr-dg-column >
+    <clr-dg-column [clrDgField]="'date'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      Date
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'phone'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      phone
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'price'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      price
+    </ng-container></clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let user of product" [clrDgItem]="user">
+      <clr-dg-cell>{{user.productid}}</clr-dg-cell>
+      <clr-dg-cell>{{user.productname}}</clr-dg-cell>
+      <clr-dg-cell>{{user.quantity}}</clr-dg-cell>
+      <clr-dg-cell>{{user.date}}</clr-dg-cell>
+      <clr-dg-cell>{{user.phone}}</clr-dg-cell>
+      <clr-dg-cell>{{user.price}}</clr-dg-cell>
+      <clr-dg-action-overflow>
+
+        <button class="action-item" (click)="onEdit(user)">Edit</button>
+        <button class="action-item" (click)="onDelete(user)">Delete</button>
+      </clr-dg-action-overflow>
+
+      <clr-dg-row-detail *clrIfExpanded>
+        <table class="table">
+          <tr>
+            <td class="td-title">ProductId</td>
+            <td class="td-content">{{user.productid}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">ProductName</td>
+            <td class="td-content">{{user.productname}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">Quantity</td>
+            <td class="td-content">{{user.quantity}} </td>
+          </tr>
+          <tr>
+            <td class="td-title">Date</td>
+            <td class="td-content">{{user.date}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">Phone Number</td>
+            <td class="td-content">phone:{{user.phone}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">Price</td>
+            <td class="td-content">{{user.price}}</td>
+          </tr>
+        </table>
+      </clr-dg-row-detail>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Users per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} users
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>
+
+<clr-modal [(clrModalOpen)]="modalEdit" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">User Edit</h3>
+  <div class="modal-body" *ngIf="rowSelected.productid">
+    <h2 class="heading">{{rowSelected.productid}}</h2>
+    <form clrForm (ngSubmit)="onUpdate(rowSelected.productid)">
+      <clr-input-container>
+        <label>Name<span class="required-field">*</span></label>
+        <input id="productname" clrInput type="text" [(ngModel)]="rowSelected.productname" name="productname" />
+      </clr-input-container>
+      <clr-input-container>
+        <label for="tags">Quantity<span class="required-field">*</span></label>
+        <input id="quantity" clrInput type="text" [(ngModel)]="rowSelected.quantity" name="quantity">
+      </clr-input-container>
+      <clr-input-container>
+        <label>Date<span class="required-field">*</span></label>
+        <input id="date" clrInput type="text" [(ngModel)]="rowSelected.date" name="date" />
+      </clr-input-container>
+      <clr-input-container>
+        <label for="tags">Phone<span class="required-field">*</span></label>
+        <input id="phone" clrInput type="text"  [(ngModel)]="rowSelected.phone" name="phone">
+      </clr-input-container>
+      <clr-input-container>
+        <label for="tags">price<span class="required-field">*</span></label>
+
+        <input id="price" clrInput type="text"  [(ngModel)]="rowSelected.price" name="price">
+      </clr-input-container>
+
+      <div class="modal-footer">
+
+      <button type="button" class="btn btn-outline" (click)="modalEdit = false">Cancel</button>
+      <button type="submit" class="btn btn-primary" >Update</button>
+      </div>
+    </form>
+
+  </div>
+</clr-modal>
+
+
+
+<clr-modal [(clrModalOpen)]="modaldelete" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+
+  <div class="modal-body" *ngIf="rowSelected.productid">
+    <h1 class="delete">Are You Sure Want to delete?</h1>
+    <h2 class="heading">{{rowSelected.productid}}</h2>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modaldelete = false">Cancel</button>
+    <button type="button" (click)="delete(rowSelected.productid)" class="btn btn-primary" >Delete</button>
+    </div>
+  </div>
+</clr-modal>
+
+
+<clr-modal [(clrModalOpen)]="modalAdd" [clrModalSize]="'xl'" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">LINE ONLY ENTRY FORM</h3>
+  <div class="modal-body">
+
+    <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+
+      <table class="table" style="width:1100%;"formArrayName="product" >
+        <thead>
+            <tr>
+
+                <th class="left" style="width:125px;">productname</th>
+                <th class="left" style="width:125px;">quantity</th>
+                <th class="left" style="width:125px;">date</th>
+                <th class="left" style="width:125px;">phone</th>
+                <th class="left" style="width:125px;">price</th>
+
+                <th class="right" style="width:125px;">{{ controls.length > 1 ? 'Actions' : '' }}</th>
+
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of controls; let i=index" [formGroupName]="i">
+              <td class="left">
+                  <input colspan="2" type="text"  class="clr-input" name="productname" formControlName="productname" class="clr-input"
+                      placeholder="Enter product name" />
+              </td>
+              <td class="left">
+                  <input colspan="2" type="text" class="clr-input" name="quantity" formControlName="quantity" class="clr-input"
+                      placeholder="Enter quantity" />
+              </td>
+              <td class="left">
+                  <input colspan="2" type="date"  class="clr-input" name="date" formControlName="date" class="clr-input"
+                      placeholder="Enter date" />
+              </td>
+              <td class="left">
+                  <input colspan="2" type="text"  class="clr-input" name="phone" formControlName="phone" class="clr-input"
+                      placeholder="Enter phone no " />
+              </td>
+              <td class="left">
+                <input colspan="2" type="text"  class="clr-input" name="price" formControlName="price" class="clr-input"
+                    placeholder="Enter price" />
+            </td>
+
+
+                <td >
+                  <a *ngIf="controls.length > 1" (click)="onRemoveLines(i)">
+                      <clr-icon shape="trash" class="is-error"></clr-icon>
+                  </a>
+              </td>
+          </tr>
+      </tbody>
+      <button type="button" class="btn btn-primary button1" (click)="onAddLines()">
+        <clr-icon shape="plus"></clr-icon>
+    </button>
+      </table>
+
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="modalAdd = false">Cancel</button>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </div>
+
+    </form>
+
+  </div>
+
+</clr-modal>
+
+

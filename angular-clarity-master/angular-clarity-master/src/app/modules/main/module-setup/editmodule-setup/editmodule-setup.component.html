@@ -1,0 +1,54 @@
+<div class="read-only-pg pad-16">
+  <h3 class="center"><b>EDIT MODULE SETUP</b></h3>
+  <br />
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="moduleName">Module Name</label>
+        <input id="moduleName" type="text" name="moduleName" placeholder="Enter Module Name"
+          [(ngModel)]="module.moduleName" class="clr-input">
+        <div *ngFor="let error of fieldErors">
+          <span *ngIf="error.field === 'moduleName'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="modulePrefix">Module Prefix</label>
+        <input id="modulePrefix" type="text" name="modulePrefix" placeholder="Enter Module Prefix"
+          [(ngModel)]="module.modulePrefix" class="clr-input">
+        <div *ngFor="let error of fieldErors">
+          <span *ngIf="error.field === 'modulePrefix'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="modulePrefix">Description</label>
+
+        <input id="description" type="text" name="description" placeholder="Enter Your Project Description"
+          [(ngModel)]="module.description" class="clr-input">
+        <!-- <textarea rows="4" cols="50" type="text" name="description" [(ngModel)]="module.description"
+            placeholder="Enter Your Project Description"></textarea> -->
+        <div *ngFor="let error of fieldErors">
+          <span *ngIf="error.field === 'description'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <!-- <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="modulePrefix">Technology Stack</label>
+        <select name="technologyStack" [(ngModel)]="module.technologyStack" class="clr-dropdown">
+          <option value="">Choose Technology</option>
+          <option *ngFor="let ts of tech_stacks" [value]="ts">{{ ts }}
+          </option>
+        </select>
+        <div *ngFor="let error of fieldErors">
+          <span *ngIf="error.field === 'technologyStack'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div> -->
+    </div>
+    <br>
+    <div class="center">
+      <button type="submit" form-control class="btn btn-primary">UPDATE</button>
+    </div>
+  </form>
+</div>

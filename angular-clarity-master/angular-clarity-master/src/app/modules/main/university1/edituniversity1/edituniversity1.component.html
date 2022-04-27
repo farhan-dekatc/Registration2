@@ -1,0 +1,124 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/']">Home</a></li>
+  <li><a href="javascript://">university1</a></li>
+  <li><a href="javascript://">edit</a></li>
+</ol>
+
+
+<div class="container">
+  <div class="section" style="width: fit-content;">
+    <p>EDIT FORM</p>
+  </div>
+  <br>
+  <form (ngSubmit)="onSubmit()">
+    <div class="clr-row">
+
+
+      <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+        <label>name: </label>
+
+      <input class="clr-input" style="width:fit-content;" type="text" name="name"
+        [(ngModel)]="university.name"
+          placeholder="Enter name">
+      </div>
+      <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+        <label>email: </label>
+
+        <input class="clr-input" style="width:fit-content;" type="text" name="email"
+          [(ngModel)]="university.email" placeholder="Enter email">
+      </div>
+
+      <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+        <label>subject: </label>
+
+        <input class="clr-input" style="width:fit-content;" type="text" name="subject"
+          [(ngModel)]="university.subject" placeholder="Enter subject">
+      </div>
+
+      <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+        <label> phone:</label>
+        <input type="text" class="clr-input" style="width:fit-content;" [(ngModel)]="university.phone" name="phone" placeholder=" Enter phone" />
+      </div>
+
+
+
+
+    </div>
+    <br>
+
+
+    <div class="section" style="width: fit-content;">
+      <p>Menu Group Lines Details</p>
+    </div>
+
+    <!-----H-L LINE part(FormArray For Multiple Lines)---->
+
+    <div class="clr-row">
+      <div class="clr-col-lg-12">
+        <table id="lines" class="table" style="width:100%;">
+          <thead>
+            <tr>
+              <th class="left" style="width:125px;">booktype</th>
+              <th class="left" style="width:125px;">bookname</th>
+              <th class="left" style="width:125px;">price</th>
+              <th class="left" style="width:125px;">writer</th>
+              <th class="left" style="width:125px;">code</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let person of university.book">
+              <td class="left">
+
+                <select class="clr-dropdown" [(ngModel)]="person.booktype" name="booktype">
+                  <option value="null">Choose ...</option>
+                  <option *ngFor="let val of booktype" value={{val}}>{{val}}</option>
+                </select>
+
+
+              </td>
+              <td class="left">
+
+                <select class="clr-dropdown" [(ngModel)]="person.bookname" name="bookname">
+                  <option value="null">Choose ...</option>
+                  <option *ngFor="let val of bookname" value={{val}}>{{val}}</option>
+                </select>
+
+              </td>
+              <td class="left">
+
+
+                <select class="clr-dropdown" [(ngModel)]="person.price" name="price">
+                  <option value="null">Choose ...</option>
+                  <option *ngFor="let val of price" value={{val}}>{{val}}</option>
+                </select>
+
+              </td>
+              <td class="left">
+
+                <select class="clr-dropdown"  [(ngModel)]="person.writer" name="writer">
+                  <option value="null">Choose ...</option>
+                  <option *ngFor="let v of writer" value={{v}}>{{v}}</option>
+                </select>
+
+
+
+              </td>
+              <td class="left">
+
+                <textarea rows="3" cols="40" style="width:fit-content;" colspan="2" type="text"
+                  [(ngModel)]="person.code" name="code" placeholder="Enter code"></textarea>
+              </td>
+
+
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+
+
+    <button type="submit" form-control class="btn btn-primary">UPDATE</button>
+  </form>
+</div>

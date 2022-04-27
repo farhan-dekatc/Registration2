@@ -1,0 +1,80 @@
+
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/']">Home</a></li>
+  <li><a href="javascript://">workflow</a></li>
+</ol>
+
+
+<div class="dg-wrapper">
+  <div class="clr-row">
+    <div class="clr-col-8">
+      <h3>Workflow  Instance</h3>
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+  <clr-datagrid [clrDgLoading]="loading">
+    <clr-dg-placeholder>user not found!</clr-dg-placeholder>
+    <clr-dg-column [clrDgField]="'id'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      id
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'wf_id'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+     wf_id
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'current_json'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      current_json
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'status'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      status
+    </ng-container></clr-dg-column>
+
+
+
+    <clr-dg-row *clrDgItems="let user of college" [clrDgItem]="user">
+      <clr-dg-cell>{{user.id}}</clr-dg-cell>
+      <clr-dg-cell >{{user.wf_id}}</clr-dg-cell>
+      <clr-dg-cell>{{user.current_json}}</clr-dg-cell>
+      <clr-dg-cell>{{user.status}}</clr-dg-cell>
+
+
+
+      <clr-dg-row-detail *clrIfExpanded>
+        <table class="table">
+          <tr>
+            <td class="td-title">Id</td>
+            <td class="td-content">{{user.id}}</td>
+          </tr>
+          <tr *ngFor="let person of user.workflow">
+            <td class="td-title">wf_id</td>
+            <td class="td-content">{{user.wf_id}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">current_json</td>
+            <td class="td-content">{{user.current_json}} </td>
+          </tr>
+          <tr>
+            <td class="td-title">status</td>
+            <td class="td-content">{{user.status}}</td>
+          </tr>
+
+        </table>
+      </clr-dg-row-detail>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Users per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} users
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>
+
+

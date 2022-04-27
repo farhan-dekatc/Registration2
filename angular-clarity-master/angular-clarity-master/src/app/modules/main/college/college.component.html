@@ -1,0 +1,15 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/']">Home</a></li>
+  <li><a href="javascript://">College</a></li>
+</ol>
+<br>
+<div class="btn-group btn-link">
+  <button class="btn btn-icon" (click)="gridViewIsActive=!gridViewIsActive">
+      <clr-icon *ngIf="!gridViewIsActive" class="is-solid" shape="grid-view" size="24"></clr-icon>
+      <clr-icon *ngIf="gridViewIsActive" class="is-solid" shape="view-list" size="24"></clr-icon>
+  </button>
+
+</div>
+<app-tiles *ngIf="gridViewIsActive" [apps]="apps"></app-tiles>
+<app-manage-view *ngIf="!gridViewIsActive" [apps]="apps" (deletedApp)="loadApps()"></app-manage-view>
+

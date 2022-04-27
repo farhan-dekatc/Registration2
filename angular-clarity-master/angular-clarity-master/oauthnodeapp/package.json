@@ -1,0 +1,22 @@
+{
+  "name": "untitled",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  },
+  "dependencies": {
+    "eureka-js-client": "^4.5.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "passport": "^0.4.1",
+    "passport-google-oauth2": "^0.2.0",
+    "passport-linkedin-oauth2": "^2.0.0"
+  }
+}

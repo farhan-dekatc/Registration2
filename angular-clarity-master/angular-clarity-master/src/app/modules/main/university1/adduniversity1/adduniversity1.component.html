@@ -1,0 +1,133 @@
+
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/']">Home</a></li>
+  <li><a href="javascript://">university1</a></li>
+  <li><a href="javascript://">add</a></li>
+</ol>
+
+<div class="container">
+  <h3 class="center"><b>ENTRY FORM</b></h3>
+
+  <!-- Header form start -->
+  <br />
+
+
+  <!-- entry form-->
+  <section>
+
+    <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+
+      <div class="clr-row" style="height: fit-content;">
+
+
+        <div class="clr-col-md-3 clr-col-sm-12">
+          <label for="name">Name</label>
+          <select id="name" formControlName="name" selecteed="null" class="clr-dropdown">
+            <option value="null">Choose name</option>
+            <option *ngFor="let ts of name" [value]="ts">{{ ts }}
+            </option>
+          </select>
+        </div>
+
+        <div class="clr-col-md-3 clr-col-sm-12">
+          <label for="email">EmailID</label>
+          <select id="email" formControlName="email" selecteed="null" class="clr-dropdown">
+            <option value="null">Choose email</option>
+            <option *ngFor="let ot of email" [value]="ot">{{ ot | uppercase }}
+            </option>
+          </select>
+        </div>
+
+        <div class="clr-col-md-3 clr-col-sm-12">
+          <label for="subject">Subject</label>
+          <select id="subject" formControlName="subject" selecteed="null" class="clr-dropdown">
+            <option value="null">Choose Subject Type</option>
+            <option *ngFor="let sot of subject" [value]="sot">{{ sot | uppercase }}
+            </option>
+          </select>
+        </div>
+
+        <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> phone:</label>
+          <input type="text" clrCheckbox formControlName="phone" value="true " />
+        </div>
+
+      </div>
+      <br>
+
+
+      <div class="section">
+        <p> Lines Details</p>
+      </div>
+
+
+      <div class="clr-row">
+        <div class="clr-col-lg-12">
+          <table class="table" style="width:100%;" formArrayName="book">
+            <thead>
+              <tr>
+
+                <th class="left" style="width:125px;">booktype</th>
+                <th class="left" style="width:125px;">bookname</th>
+                <th class="left" style="width:125px;">price</th>
+                <th class="left" style="width:125px;">writer</th>
+                <th class="left" style="width:125px;">code</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of controls; let i=index" [formGroupName]="i">
+
+                <td class="left">
+
+                  <select class="clr-dropdown" formControlName="booktype">
+                    <option value="null">Choose ...</option>
+                    <option *ngFor="let val of booktype" value={{val}}>{{val}}</option>
+                  </select>
+                </td>
+                <td class="left">
+
+                  <select class="clr-dropdown" formControlName="bookname">
+                    <option value="null">Choose ...</option>
+                    <option *ngFor="let val of bookname" value={{val}}>{{val}}</option>
+                  </select>
+                </td>
+                <td class="left">
+
+                  <select class="clr-dropdown" formControlName="price">
+                    <option value="null">Choose ...</option>
+                    <option *ngFor="let val of price" value={{val}}>{{val}}</option>
+                  </select>
+                </td>
+                <td class="left">
+
+                  <select class="clr-dropdown" formControlName="writer">
+                    <option value="null">Choose ...</option>
+                    <option *ngFor="let val of writer" value={{val}}>{{val}}</option>
+                  </select>
+                </td>
+                <td class="left">
+                  <textarea rows="3" cols="40" style="width:fit-content;" colspan="2" type="text" formControlName="code"
+                    placeholder="Enter code"></textarea>
+                </td>
+
+
+                <td style="width:40px;">
+                  <a *ngIf="controls.length > 1" (click)="onRemoveLines(i)">
+                    <clr-icon shape="trash" class="is-error"></clr-icon>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+            <button type="button" class="btn btn-primary button1" (click)="onAddLines()">
+              <clr-icon shape="plus"></clr-icon>
+            </button>
+          </table>
+        </div>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">SUBMIT</button>
+    </form>
+
+  </section>
+</div>

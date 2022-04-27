@@ -1,0 +1,87 @@
+<div *ngIf="data1 else showThis">
+  <!-- <div *ngIf="editMode === 'data1';then basic_property"> -->
+
+
+  <div class="container center">
+
+    <h2 class="text-center"><b>Welcome to <strong>cloudnsure!</strong></b></h2>
+    <h5 class="text-center">You're signing up as <strong style="font-size: 20px;">{{ email }}</strong></h5>
+    <br>
+
+    <form [formGroup]="entryForm" (ngSubmit)="onContinue()" class="pop">
+
+      <div class="clr-col-md-4 clr-col-sm-12 center">
+        <label for="controllerName"><strong>What's your full name?</strong></label><br/>
+        <input class="clr-input" type="text" id="" formControlName="name">
+      </div>
+
+
+      <div class="clr-col-md-4 clr-col-sm-12 center">
+        <label for="controllerName"><strong>Password</strong></label><br/>
+        <input class="clr-input" type="password" id="" formControlName="password">
+
+        <div>Password must be 8 characters or longer.</div>
+      </div>
+      <br/>
+      <div class="clr-col-md-4 clr-col-sm-12 center">
+        <label for="controllerName"><strong>Re-enter Password</strong></label><br/>
+        <input class="clr-input" type="password" id="" formControlName="">
+
+        <div>Password must be 8 characters or longer.</div>
+      </div>
+      <br>
+      <div class="clr-col-md-4 clr-col-sm-12 center">
+        <label for="controllerName"><strong>Mobile</strong></label><br/>
+
+        <input formControlName="mobile" class="clr-input" type="number" ng2TelInput/>
+
+      </div>
+
+      <br>
+      <div class="clr-col-md-4 clr-col-sm-12 center">
+        <label for="controllerName"><strong>Email</strong></label><br/>
+        <input class="clr-input" type="text" id="email" name="email" formControlName="email">
+      </div>
+      <br>
+
+      <br>
+      <div class="center text-center">
+        <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">continue</button>
+      </div>
+
+    </form>
+    <br/>
+
+
+    <h4>Wrong account? <a href="">Log in</a> instead.</h4>
+
+  </div>
+
+</div>
+
+
+<!-- <div *ngIf="data1==false">
+  <h2>error page</h2>
+</div> -->
+<!-- <ng-template #showThis>
+  <h2 style="text-align: center; color: red;"><strong><b>This is error page</b></strong></h2> -->
+
+
+<!-- <a routerLink="/error-page"></a> -->
+<!-- <a [routerLink]="['/error-page']"> -->
+<!-- link to user component -->
+<!-- </a> -->
+
+<!-- <button (click)="back()"></button> -->
+<!--
+</ng-template> -->
+
+<ng-template #showThis>
+  <h2 style="text-align: center; color: red;"><strong><b>This is error page</b></strong></h2>
+
+
+</ng-template>
+
+<!-- <ng-template #basic_property>
+  hjshfj
+</ng-template> -->

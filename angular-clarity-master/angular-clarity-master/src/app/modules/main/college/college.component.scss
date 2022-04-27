@@ -1,0 +1,32 @@
+input[type=text],[type=date], select {
+  width: 100%;
+  padding: 15px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.required-field{
+  color: red;
+
+}
+.horizontal{
+  width: 50%;
+  padding: 10px;
+}
+
+.td-title {
+  text-align: right;
+  width: 150px;
+  font-weight: bold;
+  background-color: rgba(63, 122, 231, 0.863);
+  color: white;
+}
+.td-content{
+  text-align: left;
+}
+.delete,.heading{
+  text-align: center;
+  color: red;
+}

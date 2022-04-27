@@ -1,0 +1,223 @@
+
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/']">Home</a></li>
+  <li><a href="javascript://">stepper</a></li>
+</ol>
+
+
+
+
+
+<div class="button-bar">
+
+  <span class="spacer"></span>
+  <button class="btn btn-sm btn-primary" (click)="reset()">Reset</button>
+
+  <button class="btn btn-sm btn-primary" (click)="changeToHorizonTal()" *ngIf="layout.direction === 'vertical'">HorizonTal Layout</button>
+  <button class="btn btn-sm btn-primary" (click)="changeToVertical()" *ngIf="layout.direction === 'horizontal'">Vertical Layout</button>
+
+</div>
+
+<div class="clr-row" >
+  <div [class]="layout.block1" >
+    <div class="card">
+      <div class="card-header">
+        <h3 style="text-align: center;"> STUDENT ADDMISSION</h3>
+      </div>
+
+      <div class=" card-block container">
+
+        <clr-timeline [clrLayout]="layout.direction" >
+          <clr-timeline-step [clrState]="timelineStyle.step0.state">
+            <clr-timeline-step-header>Step 0</clr-timeline-step-header>
+            <clr-timeline-step-title> <span *ngIf="!appToUpdate">Application</span><span *ngIf="appToUpdate"> Update Datagrid</span> </clr-timeline-step-title>
+            <clr-timeline-step-description> <span>Create/Add student<br> Application for Addmision</span></clr-timeline-step-description>
+          </clr-timeline-step>
+          <clr-timeline-step class="gemini-ignore" [clrState]="timelineStyle.step1.state">
+                        <clr-timeline-step-header>Step 1</clr-timeline-step-header>
+            <clr-timeline-step-title> <span> Schedule Discussion </span></clr-timeline-step-title>
+            <clr-timeline-step-description>
+              Enter Discussion <br>Schedule for:
+              <ul class="list">
+                <li>Candidate</li>
+                <li>Parent 1</li>
+                <li>Parent 2</li>
+              </ul>
+
+            </clr-timeline-step-description>
+          </clr-timeline-step>
+          <clr-timeline-step  [clrState]="timelineStyle.step2.state" >
+            <clr-timeline-step-header>Step 2</clr-timeline-step-header>
+            <clr-timeline-step-title><span>Candidate Interview</span></clr-timeline-step-title>
+            <clr-timeline-step-description>
+
+              Enter Candidate Interview Feedback.
+
+              <ul class="list">
+                <li>Communication</li>
+                <li>Culture</li>
+                <li>Behaviour</li>
+                <li>Aptitude</li>
+              </ul>
+
+
+            </clr-timeline-step-description>
+          </clr-timeline-step>
+          <clr-timeline-step   [clrState]="timelineStyle.step3.state" >
+            <clr-timeline-step-header>Step 3</clr-timeline-step-header>
+            <clr-timeline-step-title>Parent Interview</clr-timeline-step-title>
+            <clr-timeline-step-description> <span>Enter Parent Interview<br> Feedback.</span></clr-timeline-step-description>
+
+          </clr-timeline-step>
+          <clr-timeline-step  [clrState]="timelineStyle.step4.state">
+            <clr-timeline-step-header>Step 4</clr-timeline-step-header>
+            <clr-timeline-step-title>Review And <br>Allot Grade</clr-timeline-step-title>
+            <clr-timeline-step-description>
+              Finish .
+            </clr-timeline-step-description>
+          </clr-timeline-step>
+        </clr-timeline>
+      </div>
+    </div>
+  </div>
+  <div [class]="layout.block2" >
+
+    <!--STEP 0-->
+    <div class="card" *ngIf="timelineStyle.step0.open">
+      <div class="card-header">
+        <h3 style="text-align: center;" *ngIf="!appToUpdate">Student Addmision-Application</h3>
+        <h3 style="text-align: center;" *ngIf="appToUpdate"> Update {{college.studentname}}</h3>
+        <div class="container">
+
+          <br />
+
+          <!-- entry form-->
+          <form #contactForm="ngForm" (ngSubmit)="onSave()">
+            <div class="container">
+            <div class="clr-row">
+              <div class="horizontal1">
+                  <label for="tags"> Student Name<span class="required-field">*</span></label>
+                  <input id="name" type="text"  placeholder="Enter name" name="name"  [(ngModel)]="college.studentname" required>
+               </div>
+
+              <div class="horizontal1">
+                <label for="tags">Department<span class="required-field">*</span></label>
+                <input id="department" type="text"  placeholder="Enter department" name="department"   [(ngModel)]="college.department" required>
+              </div>
+              <div class="horizontal1">
+                <label for="tags">Phone<span class="required-field">*</span></label>
+                <input id="phone" type="text"  placeholder="Enter phone" name="phone"  [(ngModel)]="college.phone" required>
+              </div>
+              <div class="horizontal1">
+                <label for="tags">EmailId<span class="required-field">*</span></label>
+                <input id="emailId" type="text"  placeholder="Enter emailid" name="emailId"  [(ngModel)]="college.emailId" required>
+
+              </div>
+            </div>
+
+
+
+
+
+
+
+
+            <div class="clr-row">
+
+
+              <div class="horizontal1">
+                <label for="tags">Date<span class="required-field">*</span></label>
+                <input id="date" type="text"  placeholder="Enter date" name="date"  [(ngModel)]="college.joiningDate" required>
+              </div>
+            </div>
+            <!-- end row -->
+            <br>
+            <div class="button">
+              <button type="submit" class="btn btn-primary" [disabled]="!contactForm.valid">Submit</button>
+
+              <button type="button" class="btn  btn-primary"(click)=" this.timelineStyle.step0 ={ state: 'success', open: false };this.timelineStyle.step1 ={ state: 'current', open: true };  this.current()" >Complete</button>
+              <button type="button" class="btn btn-primary" (click)=" this.timelineStyle.step0 ={state:'current',open:false};this.timelineStyle.step1 ={state:'not-started',open:true}">Next</button>
+
+            </div>
+          </div>
+          </form>
+
+        </div>
+
+      </div></div>
+ <!--STEP 1-->
+ <div class="card" *ngIf="timelineStyle.step1.open">
+  <div class="card-header">
+    <h3 style="text-align: center;" *ngIf="!appToUpdate">Student Addmision-Schedule Discussion</h3>
+
+    <form #contactForm="ngForm" >
+
+    <div class="container">
+      <div class="clr-row">
+        <div class="horizontal1">
+            <label for="tags"> Select parent:<span class="required-field">*</span></label><br>
+
+    <select name="singleSelect" ng-model="data.singleSelect">
+      <option value="option-1">Parent 1</option>
+      <option value="option-2">Parent 2</option>
+    </select><br>
+         </div>
+
+
+        <div class="horizontal1">
+          <label for="tags">Date<span class="required-field">*</span></label>
+          <input id="date" type="date"  placeholder="Enter Date" name="date"  required>
+        </div>
+        <div class="horizontal1">
+          <label for="tags">Time<span class="required-field">*</span></label>
+          <input id="time" type="text"  placeholder="Enter time" name="time"  required>
+
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" >Submit</button>
+
+      <button type="button" class="btn  btn-primary" (click)="this.timelineStyle.step1 ={ state: 'success', open: false };this.timelineStyle.step2 ={ state: 'current', open: true };  this.current()">Complete</button>
+      <button class="btn btn-primary-outline" (click)="this.timelineStyle.step0 ={ state: 'success', open: true };this.timelineStyle.step1 ={ state: 'not-started', open: false };">Back</button>
+
+      <button type="button" class="btn btn-primary" (click)="this.timelineStyle.step1 ={state:'not-started',open:false};this.timelineStyle.step2 ={state:'not-started',open:true}">Next</button>
+
+    </div></form></div></div>
+<!--STEP 2-->
+<div class="card" *ngIf="timelineStyle.step2.open">
+  <div class="card-header">
+    <h3 style="text-align: center;" *ngIf="!appToUpdate">Student Addmision-Candidate Interview</h3>
+    <h3 style="text-align: center;" *ngIf="appToUpdate"> Update {{college.studentname}}</h3>
+    <div class="container">
+
+
+      <button type="button" class="btn  btn-primary"(click)="this.timelineStyle.step2 ={ state: 'success', open: false };this.timelineStyle.step3 ={ state: 'current', open: true };  this.current()">Complete</button>
+      <button class="btn btn-primary-outline" (click)="this.timelineStyle.step1 ={ state: 'success', open: true };this.timelineStyle.step2 ={ state: 'not-started', open: false };">Back</button>
+
+      <button type="button" class="btn btn-primary" (click)="this.timelineStyle.step2 ={state:'not-started',open:false};this.timelineStyle.step3 ={state:'not-started',open:true}">Next</button>
+</div></div></div>
+<!--STEP 3-->
+<div class="card" *ngIf="timelineStyle.step3.open">
+  <div class="card-header">
+    <h3 style="text-align: center;" *ngIf="!appToUpdate">Student Addmision-Parent Interview</h3>
+    <div class="container">
+      <button type="button" class="btn  btn-primary"(click)="this.timelineStyle.step3 ={ state: 'success', open: false };this.timelineStyle.step4 ={ state: 'current', open: true };  this.current()">Complete</button>
+      <button class="btn btn-primary-outline" (click)="this.timelineStyle.step2 ={ state: 'success', open: true };this.timelineStyle.step3 ={ state: 'not-started', open: false };">Back</button>
+
+      <button type="button" class="btn btn-primary" (click)="this.timelineStyle.step3 ={state:'not-started',open:false};this.timelineStyle.step4 ={state:'not-started',open:true}" >Next</button>
+</div></div></div>
+<!--STEP 4-->
+<div class="card" *ngIf="timelineStyle.step4.open">
+  <div class="card-header">
+    <h3 style="text-align: center;" *ngIf="!appToUpdate">Student Addmision-Review And Allot Grade</h3>
+    <div class="container">
+      <button class="btn btn-primary-outline" (click)="this.timelineStyle.step3 ={ state: 'current', open: true };this.timelineStyle.step4 ={ state: 'not-started', open: false };">Back</button>
+      <button class="btn btn-primary" (click)="this.timelineStyle.step4 ={ state: 'success', open: false };  this.current()"> Finish</button>
+
+</div></div></div>
+
+
+    </div>
+</div>
+
+
+

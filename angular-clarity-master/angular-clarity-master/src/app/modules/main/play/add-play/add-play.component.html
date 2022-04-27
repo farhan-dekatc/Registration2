@@ -1,0 +1,50 @@
+
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/']">Home</a></li>
+  <li><a href="javascript://">play</a></li>
+  <li><a href="javascript://">add</a></li>
+</ol>
+
+
+<div class="container">
+  <h3 CLASS="center"><b>CREATE NEW STUDENT INFO </b></h3>
+  <br />
+
+  <!-- entry form-->
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="tags">Student Name</label>
+          <input id="student_name" type="text" formControlName="studentname" placeholder="Enter name" class="clr-input">
+       </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="tags">Department</label>
+        <input id="department" type="text" formControlName="department" placeholder="Enter Department" class="clr-input">
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="tags">Phone</label>
+        <input id="phone" type="text" formControlName="phone" placeholder="Enter phoneno" class="clr-input">
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="tags">Email</label>
+        <input id="email" type="text" formControlName="emailId" placeholder="Enter email" class="clr-input">
+      </div>
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="file">JoiningDate</label>
+        <input id="Joiningdate" type="date" formControlName="joiningDate" placeholder="Enter date"  class="clr-input">
+      </div>
+
+    </div>
+
+
+
+    <!-- end row -->
+    <br>
+    <div class="center">
+      <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">Add</button>
+    </div>
+  </form>
+
+</div>

@@ -1,0 +1,125 @@
+
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/']">Home</a></li>
+  <li><a href="javascript://">module</a></li>
+  <li><a href="javascript://">all</a></li>
+</ol>
+
+
+<div class="dg-wrapper">
+  <div class="clr-row">
+    <div class="clr-col-8">
+      <h3>User list </h3>
+    </div>
+    <div class="clr-col-4" style="text-align: right;">
+      <button class="btn btn-outline"  (click)="onExport()">
+        <clr-icon shape="export"></clr-icon> xlsx
+      </button>
+      <button id="add" class="btn btn-primary"  (click)="goToAdd()">
+        <clr-icon shape="plus"></clr-icon>ADD
+      </button>
+    </div>
+  </div>
+
+
+
+
+
+
+
+  <clr-datagrid [clrDgLoading]="loading">
+    <clr-dg-placeholder>user not found!</clr-dg-placeholder>
+
+    <clr-dg-column [clrDgField]="'widget_name'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      widget_name
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="' widget_description'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        widget_description
+      </ng-container>
+      </clr-dg-column >
+    <clr-dg-column [clrDgField]="'chart_type'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      chart_type
+    </ng-container></clr-dg-column>
+
+    <clr-dg-column [clrDgField]="'sql_query'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      sql_query
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'label'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      label
+    </ng-container></clr-dg-column>
+
+    <clr-dg-column [clrDgField]="'color_scheme'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      color_scheme
+    </ng-container></clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let user of widget" [clrDgItem]="user">
+      <clr-dg-cell>{{user.widget_name}}</clr-dg-cell>
+      <clr-dg-cell>{{user. widget_description}}</clr-dg-cell>
+      <clr-dg-cell>{{user.chart_type}}</clr-dg-cell>
+      <clr-dg-cell>{{user. sql_query}}</clr-dg-cell>
+      <clr-dg-cell>{{user.label}}</clr-dg-cell>
+      <clr-dg-cell>{{user.color_scheme}}</clr-dg-cell>
+
+
+      <clr-dg-action-overflow>
+
+        <button class="action-item" (click)="goToEdit(user.id)">Edit <clr-icon shape="edit" class="is-error"></clr-icon></button>
+        <button class="action-item" (click)="onDelete(user)">Delete<clr-icon shape="trash" class="is-error"></clr-icon></button>
+
+
+
+      </clr-dg-action-overflow>
+
+      <clr-dg-row-detail *clrIfExpanded >
+        <table class="table">
+          <tr>
+            <td class="td-title">widget_name: </td>
+            <td class="td-content">{{user.widget_name}}</td>
+          </tr>
+          <tr>
+            <td class="td-title"> widget_description:</td>
+            <td class="td-content">{{user. widget_description}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">chart_type:</td>
+            <td class="td-content">{{user.chart_type}} </td>
+          </tr>
+          <tr>
+            <td class="td-title">sql_query:</td>
+            <td class="td-content">{{user.sql_query}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">label:</td>
+            <td class="td-content">{{user.label}} </td>
+          </tr>
+          <tr>
+            <td class="td-title">color_scheme:</td>
+            <td class="td-content">{{user.color_scheme}}</td>
+          </tr>
+
+        </table>
+      </clr-dg-row-detail>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Users per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} users
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>
+
+<clr-modal [(clrModalOpen)]="modaldelete" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+
+  <div class="modal-body" *ngIf="rowSelected.id">
+    <h1 class="delete">Are You Sure Want to delete?</h1>
+    <h2 class="heading">{{rowSelected.id}}</h2>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modaldelete = false">Cancel</button>
+    <button type="submit" (click)="delete(rowSelected.id)" class="btn btn-primary" >Delete</button>
+    </div>
+  </div>
+</clr-modal>

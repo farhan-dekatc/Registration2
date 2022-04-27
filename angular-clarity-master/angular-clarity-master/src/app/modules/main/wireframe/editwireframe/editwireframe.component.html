@@ -1,0 +1,353 @@
+<!-- <div class="container-fluid"> -->
+  <div *ngIf="fbHeader">
+    <h3 style="text-align: center; margin-top: 0rem">
+      {{ fbHeader.uiName }}
+      <a (click)="uinameedit(fbHeader.id)" [id]="fbHeader.id" style="margin-left: 5px;">
+        <i class="fa fa-pencil fa-sm" style="color: #003366;" title="Edit Section"></i>
+      </a>
+    </h3>
+
+
+    <!-- <div *ngIf="fbHeader.formType === ''"></div> -->
+
+    <!-- add button or section dropdown -->
+    <div style="float: right; padding-right: 3%; margin-top: -24px">
+      <form [formGroup]="addButtonOrSectionForm" (ngSubmit)="addButtonOrSection()">
+
+        <select *ngIf="uiData.header" formControlName="type">
+          <option id="header" *ngFor="let type of types" [value]="type">{{ type | uppercase }}</option>
+        </select>
+
+        <select *ngIf="uiData.line" formControlName="type">
+          <option id="line" [value]="types[1]">{{ types[1] | uppercase }}</option>
+        </select>
+
+        <a title="Add Section or Button" (click)="addButtonOrSection()">
+          <!-- <clr-icon shape="plus"></clr-icon> -->
+          <i id="add" class="fa fa-plus" title="Add Section or Button" style="color: #003366;"></i>
+        </a>
+      </form>
+    </div>
+    <!-- end form-->
+
+
+    <!-- HEADER PART START -->
+    <div *ngIf="uiData.header">
+      <div *ngFor="let section of uiData.header.section;">
+
+        <!-- HEADER SECTION START -->
+        <div class="sectiondetails">
+          <p> {{ section.fieldName }}
+            <a (click)="editSection(section.id, editMode[2])" [id]="section.id" style="margin-left: 9px;">
+              <i class="fa fa-pencil fa-sm" style="color: #003366;" title="Edit Section"></i>
+            </a>
+            <a (click)="deleteSection(section.section_num)" [id]="section.id" style="margin-left: 8px;">
+              <i class="fa fa-trash fa-sm" style="color: #e01616;" title=" Delete Section"></i>
+            </a>
+            <a (click)="addFieldInSection(fbHeader.id, section.section_num)"
+              style="float: right; padding-right: 3%; margin-top: -6px;">
+              <i class="fa fa-plus fa-2x" title="Add Field In Section" style="color: #003366;"></i>
+            </a>
+          </p>
+        </div>
+        <!-- HEADER SECTION END -->
+
+
+        <!-- FIELDS START -->
+        <!-- *ngIf="section.section_num==j"   && section.section_num=='1'-->
+        <div class="clr-row">
+          <div *ngFor="let field of section.fields; let i = index">
+            <!-- <div *ngIf="field.sction_num =='1'" > -->
+
+            <div class="clr-col-lg-12 clr-col-md-12 clr-col-sm-12">
+
+              <label [for]="'field' + i">
+                <h5>{{ field.fieldName }}
+                  <a (click)="fieldPropertyUpdate(field.id, editMode[0])">
+                    <i class="fa fa-pencil fa-lg"></i>
+                  </a>
+                  <a (click)="fieldPropertyUpdate(field.id, editMode[1])">
+                    <i class="fa fa-pencil fa-lg"></i>
+                  </a>
+                  <a (click)="deleteField(field.id)">
+                    <i class="fa fa-trash fa-lg red"></i>
+                  </a>
+                </h5>
+              </label>
+
+
+              <div *ngIf="field.type_field === 'textfield'">
+                <input type="text" [attr.id]="'field' + i" [placeholder]="field.type_field" class="clr-input" />
+              </div>
+              <div *ngIf="field.type_field === 'textarea'">
+                <textarea [attr.id]="'field' + i" [placeholder]="field.type_field"></textarea>
+              </div>
+              <div *ngIf="field.type_field === 'url'">
+                <input type="url" [attr.id]="'field' + i" [placeholder]="field.type_field" class="clr-input" />
+              </div>
+              <div *ngIf="field.type_field === 'email'">
+                <input type="email" [attr.id]="'field' + i" [placeholder]="field.type_field" class="clr-input" />
+              </div>
+              <div *ngIf="field.type_field === 'dropdown'">
+                <select class="clr-dropdown">
+                  <option value="null">Choose ...</option>
+                  <option value="">item1</option>
+                  <option value="">item2</option>
+                  <option value="">item3</option>
+                </select>
+              </div>
+              <div *ngIf="field.type_field === 'checkbox'">
+                <input type="checkbox" [attr.id]="'field' + i" clrCheckbox />
+              </div>
+              <div *ngIf="field.type_field === 'togglebutton'">
+                <input type="checkbox" [attr.id]="'field' + i" clrToggle />
+              </div>
+              <div *ngIf="field.type_field === 'datetime'">
+                <input type="date" [attr.id]="'field' + i" [placeholder]="field.type_field" class="clr-input" />
+              </div>
+              <div *ngIf="field.type_field === 'autocomplete'">
+                <input type="text" [attr.id]="'field' + i" autocomplete="on" [placeholder]="field.type_field"
+                  class="clr-input" />
+              </div>
+              <div *ngIf="field.type_field === 'currency_field'">
+                <span style='font-size:25px;'>&#8377;<input type="number" class="clr-input"
+                    [placeholder]="field.type_field" /></span>
+              </div>
+              <div *ngIf="field.type_field === 'contact_field'">
+                <input type="tel" mask="(000) 000-0000" [attr.id]="'field' + i" [placeholder]="field.type_field"
+                  class="clr-input" />
+              </div>
+              <div *ngIf="field.type_field === 'masked'">
+                <input type="password" [attr.id]="'field' + i" [placeholder]="field.type_field" class="clr-input" />
+              </div>
+            </div>
+            <!-- </div> if end -->
+          </div>
+        </div> <!-- ROW END -->
+      </div> <!-- HEADER SECTION LOOP END -->
+
+      <div class="clr-row">
+        <div *ngFor="let button of uiData.header.button;" style="margin-top: 20px;">
+          <div class="actionbtn">
+            <a (click)="buttonupdate(button.id, editMode[3])">
+              <i class="fa fa-pencil fa-lg"></i>
+            </a>
+          </div>
+          <button type="button" class="btn btn-primary button1">{{button.fieldName}} </button>
+        </div>
+      </div>
+
+
+    </div> <!-- HEADER PART END -->
+    <br>
+
+    <!-- LINE PART START -->
+
+
+
+    <div *ngIf="uiData.line">
+      <div *ngFor="let section of uiData.line.section">
+
+        <!-- HEADER SECTION START -->
+        <div class="sectiondetails">
+          <p> {{ section.fieldName }}
+            <a (click)="editSection(section.id, editMode[2])" [id]="section.id" style="margin-left: 9px;">
+              <i class="fa fa-pencil fa-sm" style="color: #003366;" title="Edit Section"></i>
+            </a>
+            <!-- <a (click)="deleteSection(section.section_num)" [id]="section.id" style="margin-left: 8px;">
+              <i class="fa fa-trash fa-sm" style="color: #e01616;" title=" Delete Section"></i>
+            </a> -->
+            <a (click)="addFieldInLineSection(fbHeader.id, section.section_num)"
+              style="float: right; padding-right: 3%; margin-top: -6px;">
+              <i class="fa fa-plus fa-2x" title="Add Field In Section" style="color: #003366;"></i>
+            </a>
+          </p>
+        </div>
+        <!-- HEADER SECTION END -->
+
+
+        <!-- FIELDS START -->
+        <!-- *ngIf="section.section_num==j"   && section.section_num=='1'-->
+        <div class="clr-row">
+          <div *ngFor="let field of section.fields; let i = index">
+            <!-- <div *ngIf="field.sction_num =='1'" > -->
+
+            <div class="clr-col-lg-12 clr-col-md-12 clr-col-sm-12">
+
+              <label [for]="'field' + i">
+                <h5>{{ field.fieldName }}
+                  <a (click)="fieldPropertyUpdate(field.id, editMode[0])">
+                    <i class="fa fa-pencil fa-lg"></i>
+                  </a>
+                  <a (click)="fieldPropertyUpdate(field.id, editMode[1])">
+                    <i class="fa fa-pencil fa-lg"></i>
+                  </a>
+                  <a (click)="deleteField(field.id)">
+                    <i class="fa fa-trash fa-lg red"></i>
+                  </a>
+                </h5>
+              </label>
+
+
+              <div *ngIf="field.type_field === 'textfield'">
+                <input type="text" [attr.id]="'field' + i" [placeholder]="field.type_field" class="clr-input" />
+              </div>
+              <div *ngIf="field.type_field === 'textarea'">
+                <textarea [attr.id]="'field' + i" [placeholder]="field.type_field"></textarea>
+              </div>
+              <div *ngIf="field.type_field === 'url'">
+                <input type="url" [attr.id]="'field' + i" [placeholder]="field.type_field" class="clr-input" />
+              </div>
+              <div *ngIf="field.type_field === 'email'">
+                <input type="email" [attr.id]="'field' + i" [placeholder]="field.type_field" class="clr-input" />
+              </div>
+              <div *ngIf="field.type_field === 'dropdown'">
+                <select class="clr-dropdown">
+                  <option value="null">Choose ...</option>
+                  <option value="">item1</option>
+                  <option value="">item2</option>
+                  <option value="">item3</option>
+                </select>
+              </div>
+              <div *ngIf="field.type_field === 'checkbox'">
+                <input type="checkbox" [attr.id]="'field' + i" clrCheckbox />
+              </div>
+              <div *ngIf="field.type_field === 'togglebutton'">
+                <input type="checkbox" [attr.id]="'field' + i" clrToggle />
+              </div>
+              <div *ngIf="field.type_field === 'datetime'">
+                <input type="date" [attr.id]="'field' + i" [placeholder]="field.type_field" class="clr-input" />
+              </div>
+              <div *ngIf="field.type_field === 'autocomplete'">
+                <input type="text" [attr.id]="'field' + i" autocomplete="on" [placeholder]="field.type_field"
+                  class="clr-input" />
+              </div>
+              <div *ngIf="field.type_field === 'currency_field'">
+                <span style='font-size:25px;'>&#8377;<input type="number" class="clr-input"
+                    [placeholder]="field.type_field" /></span>
+              </div>
+              <div *ngIf="field.type_field === 'contact_field'">
+                <input type="tel" mask="(000) 000-0000" [attr.id]="'field' + i" [placeholder]="field.type_field"
+                  class="clr-input" />
+              </div>
+              <div *ngIf="field.type_field === 'masked'">
+                <input type="password" [attr.id]="'field' + i" [placeholder]="field.type_field" class="clr-input" />
+              </div>
+            </div>
+            <!-- </div> if end -->
+          </div>
+        </div> <!-- ROW END -->
+      </div> <!-- HEADER SECTION LOOP END -->
+
+      <div class="clr-row">
+        <div *ngFor="let button of uiData.line.button;" style="margin-top: 20px;">
+          <button type="button" class="btn btn-primary button1">{{button.fieldName}} </button>
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+  <style>
+    /* old line ui data
+    <div *ngIf="uiData.line">
+      <div *ngFor="let section of uiData.line.section">
+        <!-- LINE SECTION START -->
+        <div class="sectiondetails">
+          <p> {{ section.fieldName }}
+            <a (click)="editSection(section.id, editMode[2])" [id]="section.id" style="margin-left: 8px;">
+              <i class="fa fa-pencil fa-sm" style="color: #003366;" title="Edit Line Section"></i>
+            </a>
+            <!-- <a (click)="deleteSection(section.section_num)" [id]="section.id" style="margin-left: 10px;">
+              <i class="fa fa-trash fa-sm" style="color: #e01616;" title=" Delete Section"></i>
+            </a> -->
+            <a (click)="addFieldInLineSection(fbHeader.id, section.section_num)"
+              style="float: right; padding-right: 3%; margin-top: -6px;">
+              <i class="fa fa-plus fa-2x" title="Add Line Field In Section" style="color: #003366;"></i>
+            </a>
+          </p>
+        </div>
+        <!-- LINE SECTION END -->
+
+        <!-- LINE SECTION FIELD START -->
+        <div class="clr-row">
+          <div class="clr-col-lg-12 clr-col-md-12 clr-col-sm-12">
+            <table style="width:100%; margin-top: 4px;">
+              <thead>
+                <tr>
+                  <th *ngFor="let field of section.fields" class="left" style="width:125px;">
+                    {{ field.fieldName }}
+                    <a (click)="fieldPropertyUpdate(field.id, editMode[0])">
+                      <i class="fa fa-pencil fa-lg"></i>
+                    </a>
+                    <a (click)="fieldPropertyUpdate(field.id, editMode[1])">
+                      <i class="fa fa-pencil fa-lg"></i>
+                    </a>
+                    <a (click)="deleteField(field.id)">
+                      <i class="fa fa-trash fa-lg red"></i>
+                    </a>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td *ngFor="let field of section.fields" class="left" style="text-align: center;">
+                    <div *ngIf="field.type_field === 'textfield'">
+                      <input type="checkbox" [attr.id]="field.id">
+                    </div>
+                    <ng-template #textfield>
+                      <input type="text" [attr.id]="field.id" [placeholder]="field.type_field" class="clr-input">
+                    </ng-template>
+                  </td>
+                </tr>
+              </tbody>
+              <!-- <button type="button" class="btn btn-primary button1" (click)="onAddLines()">
+                      <clr-icon shape="plus"></clr-icon>
+                    </button> -->
+            </table>
+          </div>
+        </div>
+
+        <!-- LINE SECTION FIELD END -->
+
+      </div> <!-- LINE SECTION LOOP END -->
+
+      <div class="clr-row">
+        <div *ngFor="let button of uiData.line.button;" style="margin-top: 20px;">
+          <button type="button" class="btn btn-primary button1">{{button.fieldName}} </button>
+        </div>
+      </div>
+
+
+    </div> LINE PART END  */
+
+  </style>
+
+
+
+    <br>
+    <br>
+
+    <div class="clr-row">
+      <div class="clr-col-lg-12 clr-col-md-12 clr-col-sm-12">
+        <form [formGroup]="exportDataForm" (ngSubmit)="onCreateTable()" style="text-align: center">
+
+          <table id="exportbox">
+            <tr style="width: 100px;">
+              <td> <label for="data">Export with data : </label> </td>
+              <td> <input id="exportbox" type="checkbox" name="data" clrCheckbox formControlName="data" /> </td>
+            </tr>
+
+          </table>
+
+          <button type="submit" class="btn btn-primary" [disabled]="!exportDataForm.valid">Create Table</button>
+          <!-- <button type="button" class="btn btn-primary" (click)="buildForm()">Build Form</button>
+          <button type="button" class="btn btn-primary" (click)="buildAngularForm()">Build Angular Form</button> -->
+          <button type="button" class="btn btn-primary" (click)="buildDynamicForm()">Build</button>
+        </form>
+      </div>
+    </div>
+    <!-- </div> -->
+  </div> <!-- fb header end -->

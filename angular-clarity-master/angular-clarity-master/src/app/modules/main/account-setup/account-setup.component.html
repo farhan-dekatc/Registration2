@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="display_msg">
+    <h2>Tell us about yourself {{ firstName }}</h2>
+    <br>
+  </div>
+  <!-- <h4>What is Your Organization Name? </h4> -->
+  <form class="form" [formGroup]="companyRegisterForm" (ngSubmit)="onSubmit()">
+    <label><b>What is Your Organization Name?</b></label><br>
+    <input class="form__field" type="text" formControlName="companyName"
+      placeholder="Give it a Name if you are a freelancer" />
+    <div *ngIf="f.companyName.invalid && (f.companyName.dirty || f.companyName.touched)">
+      <p style="font-size:10px; color:indianred; font-weight: bold" *ngIf="f.companyName.errors.required">Company Name is required</p>
+    </div>
+    <br>
+    <button type="submit" class="btn btn--primary uppercase" [disabled]="!companyRegisterForm.valid">continue</button>
+    </form>
+</div>

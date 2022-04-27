@@ -1,0 +1,76 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/']">Home</a></li>
+  <li><a href="javascript://">product2</a></li>
+  <li><a href="javascript://">add</a></li>
+</ol>
+
+
+<div class="container">
+  <h3 class="center"><b>LINE ONLY ENTRY FORM</b>
+  </h3>
+
+  <!-- Header form start -->
+  <br />
+
+  <!-- entry form-->
+  <section>
+      <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+          <div class="clr-row" >
+              <div class="clr-col-lg-12">
+                  <table class="table" style="width:1100%;" formArrayName="product">
+                      <thead>
+                          <tr>
+
+                              <th class="left" style="width:125px;">productname</th>
+                              <th class="left" style="width:125px;">quantity</th>
+                              <th class="left" style="width:125px;">date</th>
+                              <th class="left" style="width:125px;">phone</th>
+                              <th class="left" style="width:125px;">price</th>
+
+                              <th class="right" style="width:125px;">{{ controls.length > 1 ? 'Actions' : '' }}</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let item of controls; let i=index" [formGroupName]="i">
+                              <td class="left">
+                                  <input colspan="2" type="text" formControlName="productname" class="clr-input"
+                                      placeholder="Enter product name" />
+                              </td>
+                              <td class="left">
+                                  <input colspan="2" type="text" formControlName="quantity" class="clr-input"
+                                      placeholder="Enter quantity" />
+                              </td>
+                              <td class="left">
+                                  <input colspan="2" type="text" formControlName="date" class="clr-input"
+                                      placeholder="Enter date" />
+                              </td>
+                              <td class="left">
+                                  <input colspan="2" type="text" formControlName="phone" class="clr-input"
+                                      placeholder="Enter phone no " />
+                              </td>
+                              <td class="left">
+                                <input colspan="2" type="text" formControlName="price" class="clr-input"
+                                    placeholder="Enter price" />
+                            </td>
+
+
+                                <td >
+                                  <a *ngIf="controls.length > 1" (click)="onRemoveLines(i)">
+                                      <clr-icon shape="trash" class="is-error"></clr-icon>
+                                  </a>
+                              </td>
+                          </tr>
+                      </tbody>
+                      <button type="button" class="btn btn-primary button1" (click)="onAddLines()">
+                          <clr-icon shape="plus"></clr-icon>
+                      </button>
+                  </table>
+
+
+              </div>
+          </div>
+          <br>
+          <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">SUBMIT</button>
+      </form>
+  </section>
+</div>

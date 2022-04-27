@@ -1,0 +1,375 @@
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/']">Home</a></li>
+  <li><a href="javascript://">university</a></li>
+</ol>
+
+<div class="dg-wrapper">
+  <div class="clr-row">
+    <div class="clr-col-8">
+      <h3>User list </h3>
+    </div>
+    <div class="clr-col-4" style="text-align: right;">
+
+      <button class="btn btn-outline"  (click)="onExport()">
+        <clr-icon shape="export"></clr-icon> xlsx
+      </button>
+      <button id="add" class="btn btn-primary" (click)="goToAdd(university)" >
+        <clr-icon shape="plus"></clr-icon>ADD
+      </button>
+    </div>
+  </div>
+  <clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected">
+
+    <clr-dg-placeholder>user not found!</clr-dg-placeholder>
+    <clr-dg-column [clrDgField]="'id'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+    id
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'name'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      name
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'email'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        email
+      </ng-container>
+      </clr-dg-column >
+    <clr-dg-column [clrDgField]="'subject'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      subject
+    </ng-container></clr-dg-column>
+    <clr-dg-column [clrDgField]="'phone'"> <ng-container *clrDgHideableColumn="{hidden: false}">
+      phone
+    </ng-container></clr-dg-column>
+
+
+    <clr-dg-row *clrDgItems="let user of university" [clrDgItem]="user" >
+      <clr-dg-cell>{{user.id}}</clr-dg-cell>
+      <clr-dg-cell>{{user.name}}</clr-dg-cell>
+      <clr-dg-cell>{{user.email}}</clr-dg-cell>
+      <clr-dg-cell>{{user.subject}}</clr-dg-cell>
+      <clr-dg-cell>{{user.phone}}</clr-dg-cell>
+
+      <clr-dg-action-overflow>
+
+        <button class="action-item" (click)="onEdit(user)">Edit</button>
+        <button class="action-item" (click)="onDelete(user)">Delete</button>
+      </clr-dg-action-overflow>
+
+      <clr-dg-row-detail *clrIfExpanded>
+        <table class="table">
+          <tr>
+            <td class="td-title">Id:{{user.id}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">Name:{{user.name}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">Email:{{user.email}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">Subject:{{user.subject}}</td>
+          </tr>
+          <tr>
+            <td class="td-title">Phone Number:{{user.phone}}</td>
+          </tr>
+
+          <table id="lines" class="table" >
+            <thead>
+              <tr>
+                <th class="left">booktype</th>
+                <th class="left" >bookname</th>
+                <th class="left" >price</th>
+                <th class="left" >writer</th>
+                <th class="left" >code</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let person of user.book">
+                <td class="left"> {{person.booktype}}</td>
+                <td class="left">{{person.bookname}}</td>
+                <td class="left">{{person.price}} </td>
+                <td class="left">{{person.writer}}</td>
+                <td class="left"> {{person.code}}</td>
+              </tr>
+            </tbody>
+
+          </table>
+        </table>
+
+      </clr-dg-row-detail>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Users per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} users
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>
+
+<clr-modal [(clrModalOpen)]="modalEdit" [clrModalSize]="'xl'" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">User Edit</h3>
+  <div class="modal-body" *ngIf="rowSelected.id">
+    <h2 class="heading">{{rowSelected.id}}</h2>
+    <div class="section">
+      <p> Header </p>
+    </div>
+    <form (ngSubmit)="onUpdate(rowSelected.id)">
+      <div class="clr-row">
+
+
+        <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label>name: </label>
+
+        <input class="clr-input" style="width:fit-content;" type="text" name="name"
+          [(ngModel)]="rowSelected.name"
+            placeholder="Enter name">
+        </div>
+        <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label>email: </label>
+
+          <input class="clr-input" style="width:fit-content;" type="text" name="email"
+            [(ngModel)]="rowSelected.email" placeholder="Enter email">
+        </div>
+
+        <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label>subject: </label>
+
+          <input class="clr-input" style="width:fit-content;" type="text" name="subject"
+            [(ngModel)]="rowSelected.subject" placeholder="Enter subject">
+        </div>
+
+        <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> phone:</label>
+          <input type="text" class="clr-input" style="width:fit-content;" [(ngModel)]="rowSelected.phone" name="phone" placeholder=" Enter phone" />
+        </div>
+
+
+
+
+      </div>
+      <br>
+
+
+      <div class="section" >
+        <p>Menu Group Lines Details</p>
+      </div>
+
+      <!-----H-L LINE part(FormArray For Multiple Lines)---->
+
+      <div class="clr-row">
+        <div class="clr-col-lg-12">
+          <table id="lines" class="table" style="width:100%;">
+            <thead>
+              <tr>
+                <th class="left" style="width:125px;">booktype</th>
+                <th class="left" style="width:125px;">bookname</th>
+                <th class="left" style="width:125px;">price</th>
+                <th class="left" style="width:125px;">writer</th>
+                <th class="left" style="width:125px;">code</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let person of rowSelected.book">
+                <td class="left">
+
+                  <select class="clr-dropdown" [(ngModel)]="person.booktype" name="booktype">
+                    <option value="null">Choose ...</option>
+                    <option *ngFor="let val of booktype" value={{val}}>{{val}}</option>
+                  </select>
+
+
+                </td>
+                <td class="left">
+
+                  <select class="clr-dropdown" [(ngModel)]="person.bookname" name="bookname">
+                    <option value="null">Choose ...</option>
+                    <option *ngFor="let val of bookname" value={{val}}>{{val}}</option>
+                  </select>
+
+                </td>
+                <td class="left">
+
+
+                  <select class="clr-dropdown" [(ngModel)]="person.price" name="price">
+                    <option value="null">Choose ...</option>
+                    <option *ngFor="let val of price" value={{val}}>{{val}}</option>
+                  </select>
+
+                </td>
+                <td class="left">
+
+                  <select class="clr-dropdown"  [(ngModel)]="person.writer" name="writer">
+                    <option value="null">Choose ...</option>
+                    <option *ngFor="let v of writer" value={{v}}>{{v}}</option>
+                  </select>
+
+
+
+                </td>
+                <td class="left">
+
+                  <textarea rows="3" cols="40" style="width:fit-content;"  type="text"
+                    [(ngModel)]="person.code" name="code" placeholder="Enter code"></textarea>
+                </td>
+
+
+              </tr>
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-outline" (click)="modalEdit = false">Cancel</button>
+        <button type="submit" class="btn btn-primary" >UPDATE</button>
+        </div>
+
+
+    </form>
+
+  </div>
+</clr-modal>
+
+
+
+<clr-modal [(clrModalOpen)]="modaldelete" [clrModalSize]="'lg'" [clrModalStaticBackdrop]="true">
+
+  <div class="modal-body" *ngIf="rowSelected.id">
+    <h1 class="delete">Are You Sure Want to delete?</h1>
+    <h2 class="heading">{{rowSelected.id}}</h2>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="modaldelete = false">Cancel</button>
+    <button type="button" (click)="delete(rowSelected.id)" class="btn btn-primary" >Delete</button>
+    </div>
+  </div>
+</clr-modal>
+
+
+<clr-modal [(clrModalOpen)]="modalAdd" [clrModalSize]="'xl'" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title"> ENTRY FORM</h3>
+  <div class="modal-body">
+    <div class="section">
+      <p> Header </p>
+    </div>
+    <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+
+      <div class="clr-row" style="height: fit-content;">
+
+
+        <div class="clr-col-md-3 clr-col-sm-12">
+          <label for="name">Name</label>
+          <select id="name" formControlName="name" selecteed="null" class="clr-dropdown">
+            <option value="null">Choose name</option>
+            <option *ngFor="let ts of name" [value]="ts">{{ ts }}
+            </option>
+          </select>
+        </div>
+
+        <div class="clr-col-md-3 clr-col-sm-12">
+          <label for="email">EmailID</label>
+          <select id="email" formControlName="email" selecteed="null" class="clr-dropdown">
+            <option value="null">Choose email</option>
+            <option *ngFor="let ot of email" [value]="ot">{{ ot | uppercase }}
+            </option>
+          </select>
+        </div>
+
+        <div class="clr-col-md-3 clr-col-sm-12">
+          <label for="subject">Subject</label>
+          <select id="subject" formControlName="subject" selecteed="null" class="clr-dropdown">
+            <option value="null">Choose Subject Type</option>
+            <option *ngFor="let sot of subject" [value]="sot">{{ sot | uppercase }}
+            </option>
+          </select>
+        </div>
+
+        <div class="clr-col-md-3 clr-col-sm-12" style="margin-bottom: 20px;">
+          <label> phone:</label>
+          <input type="text" clrCheckbox formControlName="phone" value="phone" />
+        </div>
+
+      </div>
+
+      <div class="section">
+        <p> Lines Details</p>
+      </div>
+
+
+      <div class="clr-row">
+        <div class="clr-col-lg-12">
+          <table class="table" style="width:100%;"formArrayName="book" >
+            <thead>
+              <tr>
+
+                <th class="left" style="width:125px;">booktype</th>
+                <th class="left" style="width:125px;">bookname</th>
+                <th class="left" style="width:125px;">price</th>
+                <th class="left" style="width:125px;">writer</th>
+                <th class="left" style="width:125px;">code</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of controls; let i=index" [formGroupName]="i">
+
+                <td class="left">
+
+                  <select class="clr-dropdown" formControlName="booktype">
+                    <option value="null">Choose ...</option>
+                    <option *ngFor="let val of booktype" value={{val}}>{{val}}</option>
+                  </select>
+                </td>
+                <td class="left">
+
+                  <select class="clr-dropdown" formControlName="bookname">
+                    <option value="null">Choose ...</option>
+                    <option *ngFor="let val of bookname" value={{val}}>{{val}}</option>
+                  </select>
+                </td>
+                <td class="left">
+
+                  <select class="clr-dropdown"formControlName="price" >
+                    <option value="null">Choose ...</option>
+                    <option *ngFor="let val of price" value={{val}}>{{val}}</option>
+                  </select>
+                </td>
+                <td class="left">
+
+                  <select class="clr-dropdown"formControlName="writer">
+                    <option value="null">Choose ...</option>
+                    <option *ngFor="let val of writer" value={{val}}>{{val}}</option>
+                  </select>
+                </td>
+                <td class="left">
+                  <textarea rows="3" cols="40" style="width:fit-content;" colspan="2" type="text" formControlName="code"
+                    placeholder="Enter code"></textarea>
+                </td>
+
+
+                <td style="width:40px;">
+                  <a *ngIf="controls.length > 1" (click)="onRemoveLines(i)">
+                    <clr-icon shape="trash" class="is-error"></clr-icon>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+            <button type="button" class="btn btn-primary button1" (click)="onAddLines()" >
+              <clr-icon shape="plus"></clr-icon>
+            </button>
+          </table>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-outline" (click)="modalAdd = false">Cancel</button>
+        <button type="submit" class="btn btn-primary" >ADD</button>
+        </div>
+
+</form>
+  </div>
+
+</clr-modal>

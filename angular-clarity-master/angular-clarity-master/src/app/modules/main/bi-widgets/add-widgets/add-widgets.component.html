@@ -1,0 +1,53 @@
+<div class="container">
+  <h3 CLASS="center"><b>Define Widgets </b></h3>
+  <br />
+
+  <!-- entry form-->
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="tags">Widget Name</label>
+          <input id="widget_name" type="text" formControlName="widget_name" placeholder="Enter tags" class="clr-input">
+       </div>
+
+       <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="chart_type">Chart Type</label>
+          <select id="chart_type" name="chart_type" formControlName="chart_type"selected="null" class="clr-dropdown">
+            <option value="null">--select----</option>
+            <option *ngFor="let ts of chart_types" [value]="ts">{{ ts }}
+            </option>
+          </select>
+        </div>
+
+        <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="color_scheme">Color Scheme</label>
+          <select id="color_scheme" name="color_scheme" formControlName="color_scheme"selected="null" class="clr-dropdown">
+            <option value="null">--select----</option>
+            <option *ngFor="let ts of color_scheme" [value]="ts">{{ ts }}
+            </option>
+          </select>
+        </div>
+    </div> <!-- end row -->
+    <div class="clr-row">
+      <div class="clr-col-md-4 clr-col-sm-12">
+          <label for="tags">Label</label>
+          <input id="label" type="text" formControlName="label" placeholder="Enter tags" class="clr-input">
+       </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="tags">Description</label>
+        <input id="widget_description" type="text" formControlName="widget_description" placeholder="Enter Description" class="clr-input">
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="file">Sql Query</label>
+        <input id="sql_query" type="text" formControlName="sql_query" placeholder="Enter tags"  class="clr-input">
+      </div>
+    </div>
+    <br>
+    <div class="center">
+      <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">CREATE</button>
+    </div>
+  </form>
+
+</div>

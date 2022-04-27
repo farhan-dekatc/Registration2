@@ -1,0 +1,68 @@
+
+<ol class="breadcrumb breadcrumb-arrow font-trirong">
+  <li><a href="javascript://" [routerLink]="['/']">Home</a></li>
+  <li><a href="javascript://">product</a></li>
+  <li><a href="javascript://">edit</a></li>
+</ol>
+<div class="container">
+  <h3 class="center"><b>COLLEGE PORTAL EDIT FORM</b></h3>
+  <br />
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="clr-row">
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="studentname">Student Name</label>
+        <input id="studentname" type="text" name="studentname" [(ngModel)]="college.studentname"
+          placeholder="Enter student Name" class="clr-input">
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'studentname'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="department">Department</label>
+        <input id="department" type="text" name="department" [(ngModel)]="college.department"
+          placeholder="Enter Department" class="clr-input">
+        <!-- <textarea rows="4" cols="50" type="text" name="description"
+            placeholder="Enter Your Project Description"></textarea> -->
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'department'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="phone">phone</label>
+        <input type="text" name="phone" [(ngModel)]="college.phone" placeholder="Enter phone"
+          class="clr-input">
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'phone'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="phone">EmailId</label>
+        <input type="text" name="email" [(ngModel)]="college.emailId" placeholder="Enter emailid"
+          class="clr-input">
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'email'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+
+      <div class="clr-col-md-4 clr-col-sm-12">
+        <label for="JoiningDate">JoiningDate</label>
+        <input type="text" name="joiningDate" [(ngModel)]="college.joiningDate" placeholder="Enter A date"
+          class="clr-input">
+        <div *ngFor="let error of errorFields">
+          <span *ngIf="error.field === 'joiningDate'" class="text text-danger">{{ error.message }}</span>
+        </div>
+      </div>
+
+    <div class="clr-col-md-6 clr-col-sm-12">
+      <button type="submit" form-control class="btn btn-primary">UPDATE</button>
+    </div>
+</div>
+  </form>
+
+</div>

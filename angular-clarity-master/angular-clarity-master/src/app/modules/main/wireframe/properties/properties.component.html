@@ -1,0 +1,326 @@
+<div *ngIf="fbLine">
+  <div *ngIf="editMode === 'basic';then basic_property"></div>
+  <div *ngIf="editMode === 'additional';then additional_property"></div>
+  <div *ngIf="editMode === 'edit_section';then section"></div>
+  <div *ngIf="editMode === 'edit_button';then button"></div>
+
+  <!-- BASIC MODE START-->
+  <ng-template #basic_property>
+      <h3 style="text-align: center;"><b>BASIC PROPERTIES</b></h3>
+      <br>
+      <form (ngSubmit)="onBasicPropertySubmit()">
+          <!-- <table> -->
+          <div class="clr-row">
+              <div class="clr-col-xs-12 clr-col-lg-3 clr-col-md-4">
+                  <label for="fieldName">Field Name</label>
+                  <input class="clr-input" colspan="2" type="text" name="fieldName" [(ngModel)]="fbLine.fieldName"
+                      placeholder="Enter Field Name">
+                  <div *ngFor="let error of fieldErors">
+                      <span *ngIf="error.field === 'fieldName'" class="text text-danger">{{ error.message }}</span>
+                  </div>
+              </div>
+              <div class="clr-col-xs-12 clr-col-lg-3 clr-col-md-4">
+                  <label for="mapping">Mapping</label>
+                  <input class="clr-input" colspan="2" type="text" name="mapping" [(ngModel)]="fbLine.mapping"
+                      placeholder="Enter Mapping">
+                  <div *ngFor="let error of fieldErors">
+                      <span *ngIf="error.field === 'mapping'" class="text text-danger">{{ error.message }}</span>
+                  </div>
+              </div>
+              <div class="clr-col-xs-12 clr-col-lg-3 clr-col-md-4">
+                  <label for="dataType">Data Type</label>
+                  <select class="clr-dropdown" name="dataType" [(ngModel)]="fbLine.dataType">
+                      <!-- <option value="">Choose DataTypes</option> -->
+                      <option *ngFor="let dt of dataTypes" [value]="dt">{{ dt | uppercase }}
+                      </option>
+                  </select>
+                  <div *ngFor="let error of fieldErors">
+                      <span *ngIf="error.field === 'dataType'" class="text text-danger">{{ error.message }}</span>
+                  </div>
+              </div>
+              <div class="clr-col-xs-12 clr-col-lg-3 clr-col-md-4">
+                  <label for="type_field">Type Field</label>
+                  <select class="clr-dropdown" name="type_field" [(ngModel)]="fbLine.type_field">
+                      <!-- <option value="">Choose Type Fields</option> -->
+                      <option *ngFor="let tf of typeFields" [value]="tf">{{ tf | uppercase }}
+                      </option>
+                  </select>
+                  <div *ngFor="let error of fieldErors">
+                      <span *ngIf="error.field === 'type_field'" class="text text-danger">{{ error.message
+                          }}</span>
+                  </div>
+              </div>
+
+
+
+
+              <!-- col end -->
+          </div>
+          <br>
+          <div class="clr-row">
+              <!-- boolean properties -->
+              <div class="col-xs-12 col-lg-3 col-md-4">
+                  <label for="add_to_grid">Add to Grid</label>
+                  <input type="checkbox" id="add_to_grid" name="add_to_grid" [(ngModel)]="fbLine.add_to_grid">
+              </div>
+              <div class="clr-col-xs-12 clr-col-lg-3 clr-col-md-4">
+                  <label for="mandatory">Mandatory</label>
+                  <input type="checkbox" id="mandatory" name="mandatory" [(ngModel)]="fbLine.mandatory">
+              </div>
+              <div class="clr-col-xs-12 clr-col-lg-3 clr-col-md-4">
+                  <label for="type_field">Hidden</label>
+                  <input type="checkbox" id="hidden" name="hidden" [(ngModel)]="fbLine.hidden">
+              </div>
+              <div class="clr-col-xs-12 clr-col-lg-3 clr-col-md-4">
+                  <label for="readonly">Readonly</label>
+                  <input type="checkbox" id="readonly" name="readonly" [(ngModel)]="fbLine.readonly">
+              </div> <!-- col end -->
+          </div> <!-- row end -->
+          <br>
+          <button style="text-align: center;" type="submit" form-control class="btn btn-primary">UPDATE</button>
+      </form>
+  </ng-template>
+  <!-- BASIC MODE END -->
+
+  <!-- ADDITIONAL MODE START -->
+  <ng-template #additional_property>
+      <h3 style="text-align: center;"><b>ADDITIONAL PROPERTIES</b></h3>
+      <br>
+      <form (ngSubmit)="onAdditionalPropertySubmit()">
+          <div class="clr-row">
+              <div class="clr-col-4">
+                  <label for="sp_for_dropdown">sp_for_dropdown
+                      <input type="checkbox" id="sp_for_dropdown" name="Sp For Dropdown"
+                          [(ngModel)]="fbLine.sp_for_dropdown" (change)="checkSpForDropDown(fbLine.sp_for_dropdown)">
+                  </label>
+              </div>
+              <div class="clr-col-4">
+                  <div *ngIf="sp_name">
+                      <input class="clr-input" type="text" id="sp_name_for_dropdown" name="sp_name_for_dropdown"
+                          placeholder="sp_name_for_dropdown" [(ngModel)]="fbLine.sp_name_for_dropdown">
+                  </div>
+              </div>
+          </div>
+          <!-- dropdown field end -->
+          <br>
+          <!-- dependent field start -->
+          <div class="clr-row">
+              <div class="clr-col-4">
+                  <label>Dependent</label>
+                  <input type="checkbox" id="dependent" name="dependent" [(ngModel)]="fbLine.dependent"
+                      (change)="checkDependent(fbLine.dependent)">
+              </div>
+
+              <div class="clr-col-4">
+                  <div *ngIf="dependent">
+                      <input class="clr-input" type="text" id="dependent_on" name="dependent_on"
+                          placeholder="Dependent On" [(ngModel)]="fbLine.dependent_on">
+                  </div>
+                  <div class="clr-col-4">
+                      <input class="clr-input" type="text" id="dependent_sp" name="dependent_sp"
+                          placeholder="Dependent Sp" [(ngModel)]="fbLine.dependent_sp">
+                  </div>
+                  <div class="clr-col-4">
+                      <input class="clr-input" type="text" id="dependent_sp_param" name="dependent_sp_param"
+                          placeholder="dependent sp params" [(ngModel)]="fbLine.dependent_sp_param">
+                  </div>
+              </div>
+          </div>
+          <!-- dependent field end -->
+          <br>
+          <!-- autocomplete field start -->
+          <div class="clr-row">
+              <div class="clr-col-4">
+                  <label>Sp For AutoComplete</label>
+                  <input type="checkbox" id="sp_for_autocomplete" name="sp_for_autocomplete"
+                      [(ngModel)]="fbLine.sp_for_autocomplete"
+                      (change)="checkAutoComplete(fbLine.sp_for_autocomplete)">
+              </div>
+
+              <div class="clr-col-4">
+                  <div *ngIf="auto_complete">
+                      <input class="clr-input" type="text" id="sp_name_for_autocomplete"
+                          name="sp_name_for_autocomplete" placeholder="sp name for_autocomplete"
+                          [(ngModel)]="fbLine.sp_name_for_autocomplete">
+                  </div>
+              </div>
+          </div>
+          <!-- dependent field end -->
+          <br>
+
+          <!-- sequence field start -->
+          <div class="clr-row">
+              <div class="clr-col-4">
+                  <label>Sequence</label>
+
+                  <input type="checkbox" id="sequence" name="sequence" [(ngModel)]="fbLine.sequence"
+                      (change)="checkSequence(fbLine.sequence)">
+
+              </div>
+
+              <div class="clr-col-4">
+                  <div *ngIf="sequence">
+                      <input class="clr-input" type="text" id="seq_name" name="seq_name" placeholder="sequence name"
+                          [(ngModel)]="fbLine.seq_name">
+                  </div>
+                  <div class="clr-col-4">
+                      <input class="clr-input" type="text" id="seq_sp" name="seq_sp" placeholder="sequence sp name"
+                          [(ngModel)]="fbLine.seq_sp">
+                  </div>
+                  <div class="clr-col-4">
+                      <input class="clr-input" type="text" id="seq_sp_param" name="seq_sp_param"
+                          placeholder="sequence sp params" [(ngModel)]="fbLine.seq_sp_param">
+                  </div>
+              </div>
+          </div>
+          <!-- sequence field end -->
+          <br>
+          <!-- Calculated field start -->
+          <div class="clr-row">
+              <div class="clr-col-4">
+                  <label>Cal Field</label>
+
+                  <input type="checkbox" id="calculated_field" name="calculated_field"
+                      [(ngModel)]="fbLine.calculated_field" (change)="checkCalculated(fbLine.calculated_field)">
+
+              </div>
+              <div *ngIf="calculated">
+                  <div class="clr-col-4">
+                      <input class="clr-input" type="text" id="cal_sp" name="cal_sp" placeholder="Cal Sp name"
+                          [(ngModel)]="fbLine.cal_sp">
+                  </div>
+                  <div class="clr-col-4">
+                      <input class="clr-input" type="text" id="cal_sp_param" name="cal_sp_param"
+                          placeholder="Cal sp param" [(ngModel)]="fbLine.cal_sp_param">
+                  </div>
+              </div>
+          </div>
+          <!-- Calculated field end -->
+          <br>
+          <!-- Default field start -->
+          <div class="clr-row">
+              <div class="clr-col-4">
+                  <label>Default</label>
+                  <input type="checkbox" id="default_1" name="default_1" [(ngModel)]="fbLine.default_1"
+                      (change)="checkDefault(fbLine.default_1)">
+              </div>
+              <div class="clr-col-4">
+                  <div *ngIf="default">
+                      <select class="clr-dropdown" name="default_type" [(ngModel)]="fbLine.default_type">
+                          <option value="">Choose Type</option>
+                          <option value="value" selected>VALUE</option>
+                          <option value="sp">SP</option>
+                      </select>
+                  </div>
+                  <div class="clr-col-4">
+                      <input class="clr-input" type="text" id="default_value" name="default_value"
+                          placeholder="default value" [(ngModel)]="fbLine.default_value">
+                  </div>
+                  <div class="clr-col-4">
+                      <input class="clr-input" type="text" id="default_sp" name="default_sp" placeholder="default sp"
+                          [(ngModel)]="fbLine.default_sp">
+                  </div>
+                  <div class="clr-col-4">
+                      <input class="clr-input" type="text" id="default_sp_param" name="default_sp_param"
+                          placeholder="default sp param" [(ngModel)]="fbLine.default_sp_param">
+                  </div>
+              </div>
+          </div>
+          <!-- Default field end -->
+          <br>
+          <!-- Validation field start -->
+          <div class="clr-row">
+              <div class="clr-col-4">
+                  <label>Default</label>
+                  <input type="checkbox" id="validation_1" name="validation_1" [(ngModel)]="fbLine.validation_1"
+                      (change)="checkValidation(fbLine.validation_1)">
+              </div>
+
+              <div class="clr-col-4">
+                  <div *ngIf="validation">
+                      <input class="clr-input" type="text" id="val_type" name="val_type" placeholder="value type"
+                          [(ngModel)]="fbLine.val_type">
+
+                  </div>
+                  <div class="clr-col-4">
+                      <input class="clr-input" type="text" id="val_sp" name="val_sp" placeholder="val sp name"
+                          [(ngModel)]="fbLine.val_sp">
+                  </div>
+                  <div class="clr-col-4">
+                      <input class="clr-input" type="text" id="val_sp_param" name="val_sp_param"
+                          placeholder="val sp param" [(ngModel)]="fbLine.val_sp_param">
+                  </div>
+              </div>
+          </div>
+          <br>
+          <button type="submit" form-control class="btn btn-primary">UPDATE</button>
+          <!-- Default field end -->
+      </form>
+  </ng-template>
+  <!-- ADDITIONAL MODE END -->
+
+  <!-- editsection start -->
+  <ng-template #section>
+      <h3 style="text-align: center;"><b>Section PROPERTIES</b></h3>
+      <br>
+      <form (ngSubmit)="onBasicPropertySubmit()">
+          <!-- <table> -->
+          <div class="clr-row">
+              <div class="clr-col-xs-12 clr-col-lg-3 clr-col-md-4">
+                  <label for="fieldName">Section Field Name</label>
+                  <input class="clr-input" colspan="2" type="text" name="fieldName" [(ngModel)]="fbLine.fieldName"
+                      placeholder="Enter Field Name">
+                  <div *ngFor="let error of fieldErors">
+                      <span *ngIf="error.field === 'fieldName'" class="text text-danger">{{ error.message }}</span>
+                  </div>
+              </div>
+          </div>
+          <br>
+          <button style="text-align: center;" type="submit" form-control class="btn btn-primary">UPDATE</button>
+      </form>
+
+  </ng-template>
+
+  <!-- editsection end -->
+
+  <!-- edit button -->
+  <ng-template #button>
+      <h3 style="text-align: center;"><b>BUTTON PROPERTIES</b></h3>
+      <br>
+      <form (ngSubmit)="onBasicPropertySubmit()">
+          <!-- <table> -->
+          <div class="clr-row">
+              <div class="clr-col-xs-12 clr-col-lg-3 clr-col-md-4">
+                  <label for="fieldName">Button name</label>
+                  <input class="clr-input" colspan="2" type="text" name="fieldName" [(ngModel)]="fbLine.fieldName"
+                      placeholder="Enter Field Name">
+              </div>
+              <div class="clr-col-xs-12 clr-col-lg-3 clr-col-md-4">
+                  <label for="fieldName">ACTION</label>
+                 <select class="clr-dropdown" name="action" [(ngModel)]="fbLine.action">
+                      <option *ngFor="let item of action" [value]="item">{{item}}</option>
+                  </select>
+              </div>
+              <div class="clr-col-xs-12 clr-col-lg-3 clr-col-md-4">
+                  <label for="fieldName">REQUEST PARAM</label>
+                  <input class="clr-input" colspan="2" type="text" name="request_param"
+                  [(ngModel)]="fbLine.request_param"
+                      placeholder="Enter Field Name">
+              </div>
+              <div class="clr-col-xs-12 clr-col-lg-3 clr-col-md-4">
+                  <label for="fieldName">ACTION UINAME</label>
+                  <input class="clr-input" colspan="2" type="text" name="action_uiname"
+                  [(ngModel)]="fbLine.action_uiname"
+                      placeholder="Enter Field Name">
+              </div>
+          </div>
+          <br>
+          <button style="text-align: center;" type="submit" form-control class="btn btn-primary">UPDATE</button>
+      </form>
+
+  </ng-template>
+
+
+
+  <!-- edit button end -->
+</div>

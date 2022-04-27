@@ -1,0 +1,45 @@
+<div class="container">
+
+
+  <!-- <span><i class="fa fa-arrow-left" aria-hidden="true"></i></span> -->
+  <h3><b><strong>&#x2190; Congratulations, your project is
+              created !</strong></b></h3>
+
+  <h5>Who's working on your project with you. </h5>
+  <br>
+
+  <h5><Strong>Email address</Strong></h5><br>
+
+  <!-- <form [formGroup]="entryForm" (ngSubmit)="onSubmit()"> -->
+
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+
+      <div class="clr-col-md-4 clr-col-sm-12 input-container">
+          <input class="clr-input" type="text" id="" formControlName="email1" placeholder="Teammate's email">
+          <cds-icon class="clr-validate-icon" status="danger" shape="exclamation-circle"></cds-icon>
+
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12 input-container">
+          <input class="clr-input" type="text" id="" formControlName="email2" placeholder="Teammate's email">
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12 input-container">
+          <input class="clr-input" type="text" id="" formControlName="email3" placeholder="Teammate's email">
+      </div>
+
+      <div class="clr-col-md-4 clr-col-sm-12 input-container">
+          <input class="clr-input" type="text" id="" formControlName="email4" placeholder="Teammate's email">
+      </div>
+
+
+
+
+      <br />
+
+      <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid">Take me to my
+          project</button>
+      <br />
+
+  </form>
+</div>
